@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading - Hey, Curlfriend!</title>
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  background:#FADADD;
+  color:#5C3A21;
+}
+.spinner{
+  width:60px;
+  height:60px;
+  border:5px solid #F9C0D3;
+  border-top:5px solid #5C3A21;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin-bottom:1rem;
+}
+@keyframes spin{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+p{
+  font-size:1.2rem;
+  font-weight:700;
+}
+</style>
+</head>
+<body>
+  <div class="spinner"></div>
+  <p>Curlfriend is fluffing your coils 💖</p>
+
+  <script>
+    // simulate loading, then redirect to index.html after 2s
+    setTimeout(()=>{ window.location.href='index.html'; },2000);
+  </script>
+</body>
+</html>
