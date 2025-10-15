@@ -29,7 +29,7 @@ body{
   background:var(--pink1);
 }
 
-/* Floating blob background */
+/* Floating blobs */
 .blob{
   position:fixed;
   border-radius:50%;
@@ -41,6 +41,8 @@ body{
 .blob2{width:500px;height:500px;background:var(--pink3);top:50%;left:-150px;animation-delay:10s;}
 .blob3{width:350px;height:350px;background:var(--brown1);top:30%;left:-120px;animation-delay:5s;}
 .blob4{width:450px;height:450px;background:var(--brown2);top:70%;left:-180px;animation-delay:15s;}
+.blob5{width:300px;height:300px;background:var(--pink3);top:20%;left:50%;animation-delay:3s;}
+.blob6{width:250px;height:250px;background:var(--brown3);top:60%;left:70%;animation-delay:12s;}
 
 @keyframes floatBlob{
   0%{transform:translateX(0) translateY(0) rotate(0deg);}
@@ -50,28 +52,31 @@ body{
 
 /* Header */
 header{
-  text-align:center;
-  padding:4rem 1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:2rem 4rem;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 header h1{
-  font-size:3.5rem;
+  font-size:2.5rem;
   font-family:'Pacifico', cursive;
   background: linear-gradient(90deg, var(--pink2), var(--brown2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  opacity:0;
-  transform:scale(0.8);
-  animation:fadeInScale 1s forwards;
 }
-header p{
-  font-size:1.2rem;
-  margin-top:0.5rem;
-  opacity:0;
-  animation:fadeInScale 1s 0.5s forwards;
+.login-btn{
+  padding:0.7rem 1.5rem;
+  border-radius:20px;
+  border:2px solid var(--brown3);
+  background:var(--pink3);
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
 }
-@keyframes fadeInScale{
-  to{ opacity:1; transform:scale(1);}
-}
+.login-btn:hover{ background:var(--pink2); transform:scale(1.05);}
 
 /* Card sections */
 section.card{
@@ -117,8 +122,6 @@ section.card{
   transform:scale(1.05);
   box-shadow:0 12px 25px rgba(0,0,0,0.25);
 }
-
-/* Tiny CSS curl icon */
 .hair-card::before{
   content:'';
   position:absolute;
@@ -129,7 +132,7 @@ section.card{
   transform:rotate(45deg);
 }
 
-/* Login / Signup */
+/* Cards container */
 .cards-container{
   display:flex;
   justify-content:center;
@@ -174,6 +177,16 @@ section.card{
   transform:scale(1.05);
   animation: pulse 1s infinite alternate;
 }
+.form-card a{
+  display:block;
+  margin-top:0.5rem;
+  text-align:center;
+  color:var(--brown3);
+  font-weight:600;
+  text-decoration:none;
+}
+.form-card a:hover{ text-decoration:underline; }
+
 @keyframes pulse{
   0%{transform:scale(1.05);}
   100%{transform:scale(1.1);}
@@ -201,15 +214,17 @@ footer{
 <div class="blob blob2"></div>
 <div class="blob blob3"></div>
 <div class="blob blob4"></div>
+<div class="blob blob5"></div>
+<div class="blob blob6"></div>
 
 <header>
   <h1>Hey, Curlfriend!</h1>
-  <p>Your digital bestie for loving, learning, and celebrating your curls🤎</p>
+  <button class="login-btn" onclick="document.getElementById('login-card').scrollIntoView({behavior:'smooth'})">Login</button>
 </header>
 
 <section class="card" id="backstory">
   <h2>My Hair Journey</h2>
-  <p>Growing up with thick 4C hair was a challenge: tangles, shrinkage, and frizz made haircare overwhelming! I wanted a space to help Black women embrace their natural hair, learn what works, and feel empowered. That’s how <strong>Hey Curlfriend</strong> was born!</p>
+  <p>Growing up with thick 4C hair was a challenge: tangles, shrinkage, and frizz made haircare overwhelming. I wanted a space to help Black women embrace their natural hair, learn what works, and feel empowered. That’s how <strong>Hey Curlfriend</strong> was born!</p>
 </section>
 
 <section class="card" id="about-curlfriend">
@@ -217,7 +232,7 @@ footer{
   <ul>
     <li>Take a quiz to discover your hair type (2C → 4C)</li>
     <li>Get personalized product recommendations</li>
-    <li>Follow haircare routines, including nighttime too</li>
+    <li>Follow haircare routines, including bonnets</li>
     <li>Learn protective hairstyles</li>
     <li>Keep your crown healthy, moisturized, and thriving</li>
   </ul>
@@ -237,23 +252,12 @@ footer{
 </section>
 
 <div class="cards-container">
-  <div class="form-card">
+  <div class="form-card" id="login-card">
     <h2>Login</h2>
     <label>Username</label><input type="text">
     <label>Password</label><input type="password">
     <button onclick="location.href='loading.html'">Login</button>
-  </div>
-  <div class="form-card">
-    <h2>Sign Up</h2>
-    <label>First Name</label><input type="text">
-    <label>Last Name</label><input type="text">
-    <label>DOB</label><input type="date">
-    <label>Email</label><input type="email">
-    <label>Phone</label><input type="tel">
-    <label>Username</label><input type="text">
-    <label>Password</label><input type="password">
-    <label>Verify Password</label><input type="password">
-    <button onclick="location.href='loading.html'">Sign Up</button>
+    <a href="signup.html">Not a Curlfriend? Sign up!</a>
   </div>
 </div>
 
