@@ -1,1 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hey Curlfriend - Account</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --pink1: #fadadd;
+  --pink2: #ffd1dc;
+  --pink3: #ffc0cb;
+  --brown1: #d4a373;
+  --brown2: #a0522d;
+  --brown3: #5c3a21;
+  --card: #fffafc;
+  --button-pink: #f9c0d3;
+  --button-hover: #f7a1c0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  color: var(--brown3);
+  background: var(--pink1);
+  overflow-x: hidden;
+}
+
+/* Navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--pink3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+nav .logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.8rem;
+  color: var(--brown3);
+}
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+nav ul li a {
+  text-decoration: none;
+  color: var(--brown3);
+  font-weight: 700;
+  transition: 0.3s;
+}
+nav ul li a:hover {
+  color: var(--brown2);
+}
+
+/* Layout */
+.container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* Profile Section */
+.profile-card {
+  background: var(--card);
+  border: 2px solid var(--pink2);
+  border-radius: 25px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  position: relative;
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+}
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--pink2);
+  margin: 0 auto 1rem;
+}
+.profile-card h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2rem;
+}
+.edit-btn {
+  background: var(--button-pink);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.edit-btn:hover {
+  background: var(--button-hover);
+}
+
+/* Hair Type Snapshot */
+.hairtype-card {
+  background: var(--card);
+  border-radius: 25px;
+  border: 2px solid var(--brown1);
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+}
+.hairtype-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.hairtype-card button {
+  background: var(--button-pink);
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.hairtype-card button:hover {
+  background: var(--button-hover);
+}
+
+/* Recommendations Grid */
+.recs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.rec-card {
+  background: var(--card);
+  border: 2px solid var(--pink2);
+  border-radius: 25px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  opacity: 0;
+}
+.rec-card:hover { transform: scale(1.05); }
+.rec-card.visible { opacity: 1; }
+
+/* Find Stylists */
+.find-stylist {
+  text-align: center;
+  margin: 3rem 0;
+}
+.find-stylist button {
+  background: var(--brown2);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.find-stylist button:hover { background: var(--brown3); }
+
+/* Wishlist */
+.wishlist {
+  background: var(--card);
+  border: 2px solid var(--pink2);
+  border-radius: 25px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  opacity: 0;
+}
+.wishlist.visible { opacity: 1; }
+
+/* Account Settings */
+footer {
+  background: var(--brown3);
+  color: var(--pink1);
+  text-align: center;
+  padding: 2rem;
+  border-top: 3px solid var(--pink2);
+}
+footer button {
+  background: var(--button-pink);
+  border: none;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  margin: 0.3rem;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 700;
+}
+footer button:hover { background: var(--button-hover); }
+
+/* Animations */
+@keyframes fadeUp {
+  from {opacity:0;transform:translateY(50px);}
+  to {opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">Hey Curlfriend</div>
+  <ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="account.html">Account</a></li>
+    <li><a href="quiz.html">Hair Types Quiz</a></li>
+    <li><a href="routines.html">Hair Routines</a></li>
+    <li><a href="products.html">Hair Products</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="profile-card">
+    <div class="profile-pic"></div>
+    <h2 id="username">Hey, USERNAME!</h2>
+    <p><strong>Email:</strong> user@email.com</p>
+    <p><strong>Location:</strong> Dallas, TX</p>
+    <button class="edit-btn">Edit Profile</button>
+  </div>
+
+  <div class="hairtype-card">
+    <h3>Your Hair Type: <span id="hairType">4C — Coily & Beautiful ✨</span></h3>
+    <p>Moisture-rich, shrinkage-prone, and full of texture — you’re stunning! 💕</p>
+    <button>Retake the Quiz</button>
+  </div>
+
+  <h3 style="text-align:center;margin-bottom:1rem;">Your Personalized Recommendations</h3>
+  <div class="recs">
+    <div class="rec-card"><h4>Products You’ll Love</h4><p>SheaMoisture Curl Enhancing Smoothie</p></div>
+    <div class="rec-card"><h4>Suggested Routines</h4><p>Moisturize every 2–3 days & deep condition weekly.</p></div>
+    <div class="rec-card"><h4>Protective Styles</h4><p>Try goddess braids or twists this season!</p></div>
+  </div>
+
+  <div class="find-stylist">
+    <button>Find Black Hair Stylists Near Me 💇🏽‍♀️</button>
+  </div>
+
+  <div class="wishlist">
+    <h3>Your Saved Items</h3>
+    <p>You haven’t saved any yet — start exploring! ✨</p>
+  </div>
+</div>
+
+<footer>
+  <button>Change Password</button>
+  <button>Delete Account</button>
+  <button>Log Out</button>
+  <p style="margin-top:1rem;">est. 2025 Hey Curlfriend</p>
+</footer>
+
+<script>
+// animations on scroll
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add('visible');
+  });
+},{threshold:0.2});
+
+document.querySelectorAll('.rec-card, .wishlist, .profile-card, .hairtype-card').forEach(el=>observer.observe(el));
+
+// dynamic username (placeholder)
+document.addEventListener("DOMContentLoaded", ()=>{
+  const name = localStorage.getItem("username") || "Curlfriend";
+  document.getElementById("username").textContent = `Hey, ${name}!`;
+});
+</script>
+
+</body>
+</html>
 
