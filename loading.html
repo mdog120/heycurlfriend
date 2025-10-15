@@ -3,44 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loading - Hey, Curlfriend!</title>
+<title>Loading Hey Curlfriend...</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <style>
+:root{
+  --pink1:#FADADD;
+  --pink2:#FFD1DC;
+  --pink3:#FFC0CB;
+  --brown1:#D4A373;
+  --brown2:#A0522D;
+  --brown3:#5C3A21;
+}
+
+/* Body & background */
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
   height:100vh;
-  background:#FADADD;
-  color:#5C3A21;
+  font-family:'Nunito',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:var(--pink1);
+  overflow:hidden;
+  position:relative;
+  color:var(--brown3);
 }
-.spinner{
-  width:60px;
-  height:60px;
-  border:5px solid #F9C0D3;
-  border-top:5px solid #5C3A21;
+
+/* Floating blobs */
+.blob{
+  position:fixed;
   border-radius:50%;
-  animation:spin 1s linear infinite;
+  opacity:0.2;
+  z-index:-1;
+  animation:floatBlob 30s linear infinite;
+}
+.blob1{width:400px;height:400px;background:var(--pink2);top:10%;left:-100px;animation-delay:0s;}
+.blob2{width:500px;height:500px;background:var(--pink3);top:50%;left:-150px;animation-delay:10s;}
+.blob3{width:350px;height:350px;background:var(--brown1);top:30%;left:-120px;animation-delay:5s;}
+.blob4{width:450px;height:450px;background:var(--brown2);top:70%;left:-180px;animation-delay:15s;}
+
+@keyframes floatBlob{
+  0%{transform:translateX(0) translateY(0) rotate(0deg);}
+  50%{transform:translateX(200vw) translateY(50px) rotate(20deg);}
+  100%{transform:translateX(0) translateY(0) rotate(0deg);}
+}
+
+/* Loader */
+.loader{
+  width:80px;
+  height:80px;
+  border:8px solid var(--pink3);
+  border-top:8px solid var(--brown3);
+  border-radius:50%;
+  animation:spin 1.2s linear infinite;
   margin-bottom:1rem;
 }
 @keyframes spin{
   0%{transform:rotate(0deg);}
   100%{transform:rotate(360deg);}
 }
-p{
-  font-size:1.2rem;
-  font-weight:700;
+
+/* Text */
+.loading-text{
+  font-family:'Pacifico', cursive;
+  font-size:1.5rem;
+  text-align:center;
+  color:var(--brown3);
+  animation:fadeIn 2s infinite alternate;
+}
+@keyframes fadeIn{
+  0%{opacity:0.4;}
+  100%{opacity:1;}
 }
 </style>
 </head>
 <body>
-<div class="spinner"></div>
-<p>Curlfriend is fluffing your coils 💖</p>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+<div class="blob blob4"></div>
+
+<div class="loader-container" style="text-align:center;">
+  <div class="loader"></div>
+  <div class="loading-text">Loading Hey Curlfriend...</div>
+</div>
 
 <script>
-setTimeout(()=>{ window.location.href='home.html'; },2000);
+// Redirect to home.html after 3 seconds
+setTimeout(()=>{
+  window.location.href = 'home.html';
+},3000);
 </script>
+
 </body>
 </html>
