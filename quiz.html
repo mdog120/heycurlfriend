@@ -31,7 +31,9 @@ nav ul li a:hover{color:var(--brown2);}
 
 /* Container & Cards */
 .container{max-width:900px; margin:2rem auto; padding:1rem;}
-.quiz-card, #resultSection{background:var(--card); border-radius:25px; border:2px solid var(--pink2); padding:2rem; margin-bottom:2rem; box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+#progressContainer{background:var(--pink2); border-radius:25px; height:15px; margin-bottom:1.5rem; overflow:hidden;}
+#progressBar{background:var(--brown2); width:0%; height:100%; transition:width 0.4s ease;}
+.quiz-card, #resultSection{background:var(--card); border-radius:25px; border:2px solid var(--pink2); padding:2rem; margin-bottom:2rem; box-shadow:0 10px 25px rgba(0,0,0,0.1); transition:opacity 0.3s ease;}
 .quiz-card h3{margin-bottom:1rem;}
 .options{display:flex; flex-direction:column; gap:0.8rem;}
 .options button{background:var(--button-pink); border:none; border-radius:25px; padding:0.7rem; cursor:pointer; font-weight:700; transition:0.3s;}
@@ -59,6 +61,8 @@ nav ul li a:hover{color:var(--brown2);}
 </nav>
 
 <div class="container">
+  <div id="progressContainer"><div id="progressBar"></div></div>
+
   <div id="quizContainer" class="quiz-card">
     <h3 id="questionText"></h3>
     <div class="options" id="optionsContainer"></div>
@@ -104,66 +108,88 @@ const quizData = [
 
 let currentQ=0;
 let hairScore={"2C":0,"3A":0,"3B":0,"3C":0,"4A":0,"4B":0,"4C":0};
-
 const questionText=document.getElementById('questionText');
 const optionsContainer=document.getElementById('optionsContainer');
+const progressBar=document.getElementById('progressBar');
 
 function showQuestion(){
   const q=quizData[currentQ];
   questionText.textContent=q.question;
   optionsContainer.innerHTML='';
+  progressBar.style.width=`${(currentQ/quizData.length)*100}%`;
+
   q.options.forEach((opt,i)=>{
     const btn=document.createElement('button');
     btn.textContent=opt;
     btn.onclick=()=>{
       hairScore[q.values[i]]++;
-      if(currentQ<quizData.length-1){currentQ++; showQuestion();}
-      else{showResults();}
+      optionsContainer.parentElement.style.opacity=0;
+      setTimeout(()=>{
+        if(currentQ<quizData.length-1){
+          currentQ++;
+          showQuestion();
+        } else {
+          showResults();
+        }
+        optionsContainer.parentElement.style.opacity=1;
+      }, 300);
     };
     optionsContainer.appendChild(btn);
   });
 }
-showQuestion();
 
 function showResults(){
+  const maxType=Object.keys(hairScore).reduce((a,b)=>hairScore[a]>hairScore[b]?a:b);
+  document.getElementById('finalHairType').textContent=maxType;
+  document.getElementById('resultDescription').textContent="Your curls are beautiful and unique! Here's a little info:";
+  document.getElementById('proneTo').textContent="Prone to dryness, shrinkage, and requires consistent moisture.";
+  document.getElementById('celebs').textContent="Celebrities with this hair type: "+quizData.find(q=>q.values.includes(maxType)).options[quizData.find(q=>q.values.includes(maxType)).values.indexOf(maxType)];
   document.getElementById('quizContainer').style.display='none';
-  let max=0,hairType='';
-  for(let type in hairScore){if(hairScore[type]>max){max=hairScore[type];hairType=type;}}
-  document.getElementById('finalHairType').textContent=hairType;
-
-  const hairInfo={
-    "2C": {desc:"Wavy hair, S-shaped, low shrinkage, easy to manage.", prone:"Frizz in humidity, slight dryness.", celebs:"Zendaya, Naomi Osaka"},
-    "3A": {desc:"Loose curls, soft & fine.", prone:"Prone to frizz, needs moisture.", celebs:"Sarah Hyland, Ariana Grande"},
-    "3B": {desc:"Springy curls, medium density.", prone:"Dry ends, frizz.", celebs:"Kelly Rowland, Zendaya"},
-    "3C": {desc:"Tight curls, thick & voluminous.", prone:"Dryness, shrinkage.", celebs:"Kerry Washington, Lupita Nyong'o"},
-    "4A": {desc:"Soft coils, defined pattern.", prone:"Breakage if over-manipulated.", celebs:"Solange, Janelle Monae"},
-    "4B": {desc:"Z-shaped coils, dense & strong.", prone:"May break if over-stretched.", celebs:"Tracee Ellis Ross, Yara Shahidi"},
-    "4C": {desc:"Tightly coiled, fragile, high shrinkage.", prone:"Prone to breakage & dryness, needs high moisture.", celebs:"Beyoncé, Viola Davis"}
-  };
-  document.getElementById('resultDescription').textContent=hairInfo[hairType].desc;
-  document.getElementById('proneTo').textContent=`Prone to: ${hairInfo[hairType].prone}`;
-  document.getElementById('celebs').textContent=`Celebrities with similar hair: ${hairInfo[hairType].celebs}`;
-  
   document.getElementById('resultSection').style.display='block';
   launchConfetti();
 }
 
-function launchConfetti(){
+document.getElementById('restartBtn').onclick=()=>{
+  hairScore={"2C":0,"3A":0,"3B":0,"3C":0,"4A":0,"4B":0,"4C":0};
+  currentQ=0;
+  document.getElementById('resultSection').style.display='none';
+  document.getElementById('quizContainer').style.display='block';
+  showQuestion();
+};
+
+// ---------- Confetti ----------
+function launchConfetti() {
   const canvas=document.getElementById('confettiCanvas');
   const ctx=canvas.getContext('2d');
   canvas.width=window.innerWidth;
   canvas.height=window.innerHeight;
+  const confettis=[];
+  const colors=["#F9C0D3","#FFD1DC","#FFC0CB","#D4A373","#A0522D","#5C3A21"];
   for(let i=0;i<150;i++){
-    const x=Math.random()*canvas.width;
-    const y=Math.random()*canvas.height;
-    const r=Math.random()*8+2;
-    const color=`hsl(${Math.random()*360},70%,60%)`;
-    ctx.beginPath();
-    ctx.arc(x,y,r,0,2*Math.PI);
-    ctx.fillStyle=color;
-    ctx.fill();
+    confettis.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-100,r:Math.random()*6+4,d:Math.random()*40,color:colors[Math.floor(Math.random()*colors.length)],tilt:Math.random()*10-10,tiltAngle:0,tiltAngleIncrement:Math.random()*0.07+0.05});
   }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    confettis.forEach(c=>{
+      ctx.beginPath();
+      ctx.lineWidth=c.r/2;
+      ctx.strokeStyle=c.color;
+      ctx.moveTo(c.x+c.tilt+c.r/4,c.y);
+      ctx.lineTo(c.x+c.tilt,c.y+c.tilt+c.r/4);
+      ctx.stroke();
+      c.tiltAngle+=c.tiltAngleIncrement;
+      c.y+=(Math.cos(c.d)+3+c.r/2)/2;
+      c.x+=Math.sin(c.d);
+      c.tilt=Math.sin(c.tiltAngle)*15;
+      if(c.y>canvas.height){c.y=-10;c.x=Math.random()*canvas.width;}
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
 }
+
+// Initialize quiz
+showQuestion();
 </script>
 
 </body>
