@@ -18,22 +18,30 @@
   --button-hover:#F7A1C0;
 }
 
+/* Body and general layout */
 body{
   margin:0;
   font-family:'Nunito',sans-serif;
-  background-color:var(--pink1);
+  background:linear-gradient(120deg, #FFD1DC 0%, #FADADD 50%, #FFC0CB 100%);
+  background-size:400% 400%;
+  animation:gradientBG 15s ease infinite;
   color:var(--brown3);
   line-height:1.6;
   overflow-x:hidden;
+}
+@keyframes gradientBG{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 
 /* Header */
 header{
   text-align:center;
-  padding:3rem 1rem;
+  padding:4rem 1rem 2rem;
 }
 header h1{
-  font-size:3rem;
+  font-size:3.5rem;
   font-family:'Pacifico', cursive;
   background: linear-gradient(90deg, var(--pink2), var(--brown2));
   -webkit-background-clip: text;
@@ -55,14 +63,15 @@ header p{
   }
 }
 
-/* Cards */
+/* Card sections */
 section.card{
-  max-width:900px;
-  margin:2rem auto;
+  max-width:1000px;
+  margin:3rem auto;
   padding:2rem;
   background:var(--card);
-  border-radius:20px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  border-radius:25px;
+  border:3px solid var(--pink3);
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
   opacity:0;
   transform:translateY(50px);
   transition:all 0.8s ease;
@@ -78,9 +87,10 @@ section.card{
   margin-bottom:1rem;
   font-family:'Roboto Slab', serif;
   font-size:2rem;
+  color:var(--brown2);
 }
 
-/* Hair Types */
+/* Hair Types Grid */
 .hair-types{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -91,7 +101,7 @@ section.card{
   border-radius:20px;
   background:linear-gradient(135deg, var(--pink3), var(--brown1));
   color:var(--brown3);
-  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
   transition:transform 0.3s, box-shadow 0.3s;
   opacity:0;
   transform:translateY(50px);
@@ -102,17 +112,18 @@ section.card{
 }
 .hair-card:hover{
   transform:translateY(-5px);
-  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  box-shadow:0 12px 25px rgba(0,0,0,0.25);
 }
 .hair-card h3{
   margin-top:0;
   font-family:'Pacifico', cursive;
+  font-size:1.5rem;
 }
 .hair-card p{
   font-size:0.95rem;
 }
 
-/* Login/Signup */
+/* Login / Signup */
 .cards-container{
   display:flex;
   justify-content:center;
@@ -122,10 +133,11 @@ section.card{
 }
 .form-card{
   background:var(--card);
-  border-radius:20px;
+  border-radius:25px;
+  border:2px solid var(--pink2);
   padding:2rem;
-  box-shadow:0 6px 20px rgba(0,0,0,0.1);
-  width:300px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  width:320px;
   opacity:0;
   transform:translateY(50px);
   transition:all 0.8s ease;
@@ -138,23 +150,26 @@ section.card{
 .form-card label{display:block;margin:0.3rem 0 0.1rem;}
 .form-card input{
   width:100%;
-  padding:0.5rem;
-  border-radius:10px;
+  padding:0.6rem;
+  border-radius:12px;
   border:1px solid var(--brown3);
-  margin-bottom:0.5rem;
+  margin-bottom:0.6rem;
 }
 .form-card button{
   width:100%;
-  padding:0.6rem;
+  padding:0.7rem;
   border:none;
-  border-radius:20px;
+  border-radius:25px;
   background:var(--button-pink);
   color:var(--brown3);
   font-weight:700;
   cursor:pointer;
   transition:0.3s;
 }
-.form-card button:hover{background:var(--button-hover);}
+.form-card button:hover{
+  background:var(--button-hover);
+  transform:scale(1.05);
+}
 
 /* Footer */
 footer{
@@ -162,15 +177,14 @@ footer{
   padding:1.5rem;
   background:var(--brown3);
   color:var(--pink1);
-  margin-top:2rem;
+  margin-top:3rem;
+  border-top:3px solid var(--pink3);
 }
 
 /* Responsive */
 @media(max-width:768px){
   .cards-container{flex-direction:column;align-items:center;}
 }
-
-/* IntersectionObserver fade-in animation */
 </style>
 </head>
 <body>
@@ -183,56 +197,33 @@ footer{
 <!-- Backstory -->
 <section class="card" id="backstory">
   <h2>My Hair Journey</h2>
-  <p>As a kid, managing my thick 4C hair felt impossible. Tangled knots, shrinkage, and frizz made haircare intimidating. I dreamed of a space that could help Black women understand, love, and maintain their natural hair — and that’s how Hey Curlfriend was born.</p>
+  <p>Growing up with thick 4C hair was a challenge: tangles, shrinkage, and frizz made haircare overwhelming. I wanted a space to help Black women embrace their natural hair, learn what works, and feel empowered. That’s how <strong>Hey Curlfriend</strong> was born!</p>
 </section>
 
 <!-- About Curlfriend -->
 <section class="card" id="about-curlfriend">
   <h2>About Hey Curlfriend</h2>
-  <p>Hey Curlfriend helps you:</p>
   <ul>
     <li>Take a quiz to discover your hair type (2C → 4C)</li>
     <li>Get personalized product recommendations</li>
-    <li>Follow daily haircare routines, including bonnets</li>
+    <li>Follow haircare routines, including bonnets</li>
     <li>Learn protective hairstyles</li>
-    <li>Find hairdressers near you</li>
+    <li>Find trusted hairdressers near you</li>
     <li>Keep your crown healthy, moisturized, and thriving</li>
   </ul>
-  <p>It’s your digital bestie for everything curls!</p>
 </section>
 
 <!-- Hair Types -->
 <section class="card">
   <h2>Hair Types</h2>
   <div class="hair-types">
-    <div class="hair-card">
-      <h3>2C</h3>
-      <p>Loose S-shaped waves. Frizz easily. Lightweight products work best. <strong>Take the hair type quiz to see if you’re 2C!</strong></p>
-    </div>
-    <div class="hair-card">
-      <h3>3A</h3>
-      <p>Defined, springy curls. Hydrating products enhance shine and curl shape.</p>
-    </div>
-    <div class="hair-card">
-      <h3>3B</h3>
-      <p>Medium curls with volume. Extra moisture reduces frizz. Protective styles help length retention.</p>
-    </div>
-    <div class="hair-card">
-      <h3>3C</h3>
-      <p>Dense, corkscrew curls. Rich creams, leave-in conditioners, and gentle detangling are key.</p>
-    </div>
-    <div class="hair-card">
-      <h3>4A</h3>
-      <p>Soft S-shaped coils. Retain moisture well. Love twists and braids.</p>
-    </div>
-    <div class="hair-card">
-      <h3>4B</h3>
-      <p>Z-shaped coils. Needs moisture and gentle handling. Protective hairstyles prevent breakage.</p>
-    </div>
-    <div class="hair-card">
-      <h3>4C</h3>
-      <p>Tightest coils. Highly fragile. Protective styling, deep conditioning, and gentle care are essential.</p>
-    </div>
+    <div class="hair-card"><h3>2C</h3><p>Loose S-shaped waves. Frizz easily. Lightweight products work best. <strong>Take the quiz to see if you’re 2C!</strong></p></div>
+    <div class="hair-card"><h3>3A</h3><p>Defined, springy curls. Hydrating products enhance shine and curl shape.</p></div>
+    <div class="hair-card"><h3>3B</h3><p>Medium curls with volume. Extra moisture reduces frizz. Protective styles help length retention.</p></div>
+    <div class="hair-card"><h3>3C</h3><p>Dense, corkscrew curls. Rich creams, leave-in conditioners, and gentle detangling are key.</p></div>
+    <div class="hair-card"><h3>4A</h3><p>Soft S-shaped coils. Retain moisture well. Love twists and braids.</p></div>
+    <div class="hair-card"><h3>4B</h3><p>Z-shaped coils. Needs moisture and gentle handling. Protective hairstyles prevent breakage.</p></div>
+    <div class="hair-card"><h3>4C</h3><p>Tightest coils. Highly fragile. Protective styling, deep conditioning, and gentle care are essential.</p></div>
   </div>
 </section>
 
@@ -240,10 +231,8 @@ footer{
 <div class="cards-container">
   <div class="form-card">
     <h2>Login</h2>
-    <label>Username</label>
-    <input type="text">
-    <label>Password</label>
-    <input type="password">
+    <label>Username</label><input type="text">
+    <label>Password</label><input type="password">
     <button onclick="location.href='loading.html'">Login</button>
   </div>
   <div class="form-card">
@@ -263,7 +252,7 @@ footer{
 <footer>est. 2025 Hey, Curlfriend.</footer>
 
 <script>
-// IntersectionObserver for fade-in on scroll
+// IntersectionObserver for fade-in scroll animations
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){
