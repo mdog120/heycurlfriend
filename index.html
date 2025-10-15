@@ -6,69 +6,140 @@
 <title>Hey, Curlfriend!</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --dark-brown: #3B2F2F;
-    --beige: #F4E9DC;
-    --black: #000000;
-    --gold: #C9A86A;
-    --hover-gold: #D6A77A;
-  }
+:root{
+  --dark-brown:#3B2F2F;
+  --beige:#F4E9DC;
+  --gold:#C9A86A;
+  --hover-gold:#D6A77A;
+  --black:#000;
+}
+body{
+  margin:0;
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(120deg,#F4E9DC,#C9A86A,#3B2F2F);
+  color:var(--dark-brown);
+  overflow-x:hidden;
+}
+/* header */
+header{
+  text-align:center;
+  padding:3rem 1rem;
+  color:var(--beige);
+  animation: fadeIn 2s ease forwards;
+}
+header h1{
+  font-family:'Pacifico',cursive;
+  font-size:3rem;
+  margin-bottom:1rem;
+  background:linear-gradient(90deg,#F4E9DC,#C9A86A,#3B2F2F);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:textGlow 3s infinite alternate;
+}
+header p{font-size:1.2rem;}
 
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Nunito',sans-serif;background:var(--beige);color:var(--dark-brown);}
-  h1,h2,h3{margin-bottom:0.5rem;}
-  button{cursor:pointer;border:none;outline:none;}
+/* About */
+section.about{
+  padding:3rem 1rem;
+  max-width:800px;
+  margin:0 auto;
+  text-align:center;
+  background:rgba(255,255,255,0.3);
+  border-radius:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  animation:fadeIn 2s ease forwards;
+}
+section.about p{margin-bottom:1rem;}
 
-  /* 🌸 Hero */
-  header{
-    text-align:center;padding:2rem 1rem;background:var(--dark-brown);color:var(--beige);
-  }
-  header h1{font-family:'Pacifico',cursive;font-size:3rem;margin-bottom:0.5rem;animation:fadeIn 1.5s ease forwards;}
-  header p{font-size:1.2rem;margin-bottom:1rem;}
-  header .btn{background:var(--gold); color:var(--dark-brown); padding:0.7rem 1.5rem; border-radius:25px; font-weight:700; transition:0.3s;margin:0 0.5rem;}
-  header .btn:hover{background:var(--hover-gold); transform:scale(1.05);}
+/* Hair Types */
+section.hair-types{
+  padding:3rem 1rem;
+  text-align:center;
+}
+.hair-types h2{
+  font-family:'Pacifico',cursive;
+  font-size:2rem;
+  margin-bottom:2rem;
+}
+.hair-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:2rem;
+  justify-items:center;
+}
+.hair-card{
+  width:100px;height:150px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  position:relative;
+}
+.hair-card span{
+  display:block;
+  width:4px;
+  height:100px;
+  background:var(--dark-brown);
+  border-radius:2px;
+  animation:wave 2s ease-in-out infinite alternate;
+  margin-bottom:10px;
+}
 
-  /* 🌸 Cards Container */
-  .cards-container{display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; padding:2rem;}
+/* Testimonials */
+section.testimonials{
+  padding:3rem 1rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  max-width:600px;
+  margin:0 auto;
+}
+.testimonial{
+  position:absolute;
+  width:100%;
+  opacity:0;
+  transform:translateX(100%);
+  transition:0.5s ease;
+}
+.testimonial.active{
+  opacity:1;
+  transform:translateX(0);
+}
+.testimonial p{font-style:italic;margin-bottom:0.5rem;}
+.testimonial h3{font-weight:700;}
 
-  /* 🌸 Form Cards */
-  .form-card{
-    background:var(--beige); padding:1.5rem; border-radius:20px; box-shadow:0 8px 20px rgba(0,0,0,0.2); width:300px; transition:0.3s;
-  }
-  .form-card h2{font-family:'Pacifico',cursive;text-align:center;margin-bottom:1rem;}
-  .form-card label{display:block;margin:0.3rem 0 0.1rem;}
-  .form-card input{width:100%;padding:0.5rem;border-radius:10px;border:1px solid var(--dark-brown);margin-bottom:0.5rem;}
-  .form-card button{width:100%;padding:0.6rem;background:var(--gold);border-radius:20px;font-weight:700;transition:0.3s;}
-  .form-card button:hover{background:var(--hover-gold); transform:scale(1.03);}
+/* Cards Container */
+.cards-container{display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; padding:2rem;}
+.form-card{
+  background:var(--beige); padding:1.5rem; border-radius:20px; box-shadow:0 8px 20px rgba(0,0,0,0.2); width:300px; transition:0.3s; animation:fadeIn 2s ease forwards;
+}
+.form-card h2{font-family:'Pacifico',cursive;text-align:center;margin-bottom:1rem;}
+.form-card label{display:block;margin:0.3rem 0 0.1rem;}
+.form-card input{width:100%;padding:0.5rem;border-radius:10px;border:1px solid var(--dark-brown);margin-bottom:0.5rem;}
+.form-card button{width:100%;padding:0.6rem;background:var(--gold);border-radius:20px;font-weight:700;transition:0.3s;}
+.form-card button:hover{background:var(--hover-gold); transform:scale(1.03);}
 
-  /* 🌸 Loading Screen */
-  #loading{
-    position:fixed;top:0;left:0;width:100%;height:100%;background:var(--beige);display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:1.5rem;font-weight:700;color:var(--dark-brown);display:none;z-index:1000;
-  }
-  .spinner{
-    width:50px;height:50px;border:5px solid var(--gold);border-top:5px solid var(--dark-brown);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:1rem;
-  }
+/* Loading Screen */
+#loading{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(255,255,255,0.9);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  font-size:1.5rem;font-weight:700;color:var(--dark-brown);display:none;z-index:1000;
+}
+.spinner{
+  width:50px;height:50px;border:5px solid var(--gold);border-top:5px solid var(--dark-brown);
+  border-radius:50%;animation:spin 1s linear infinite;margin-bottom:1rem;
+}
 
-  /* 🌸 Home Section */
-  #home{display:none;padding:3rem 1rem;text-align:center;}
-  #home h2{font-family:'Pacifico',cursive;font-size:2rem;margin-bottom:2rem;}
-  .hair-cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1.5rem; justify-items:center;}
-  .hair-card{
-    width:100px; height:100px; border-radius:50%; background:var(--dark-brown); display:flex; align-items:center; justify-content:center; color:var(--beige); font-weight:700; position:relative; transition:transform 0.3s;
-  }
-  .hair-card:hover{transform:scale(1.1);}
-  .hair-card::after{
-    content:attr(data-msg); position:absolute; bottom:-1.5rem; left:50%; transform:translateX(-50%); background:var(--gold); color:var(--dark-brown); padding:0.2rem 0.5rem; border-radius:10px; font-size:0.75rem; opacity:0; transition:0.3s;
-  }
-  .hair-card:hover::after{opacity:1;}
+/* Footer */
+footer{background:var(--dark-brown); color:var(--beige); text-align:center; padding:1.5rem; margin-top:2rem;}
+footer a{margin:0 0.5rem;color:var(--beige);font-weight:600;}
 
-  /* 🌸 Footer */
-  footer{background:var(--dark-brown); color:var(--beige); text-align:center; padding:1.5rem; margin-top:2rem;}
-  footer a{margin:0 0.5rem;color:var(--beige);font-weight:600;}
-
-  /* 🌸 Animations */
-  @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+/* Animations */
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes wave{0%{transform:rotate(-10deg);}100%{transform:rotate(10deg);}}
+@keyframes textGlow{0%{filter:drop-shadow(0 0 0px #fff);}100%{filter:drop-shadow(0 0 8px #fff);}}
 </style>
 </head>
 <body>
@@ -78,20 +149,52 @@
   <p>Your digital bestie for loving, learning, and caring for your crown 💕</p>
 </header>
 
-<!-- Cards Container -->
+<section class="about">
+  <h2>About</h2>
+  <p>As a kid, I struggled so much managing my thick 4C hair. HeyCurlfriend is my digital bestie to help Black women embrace, care for, and celebrate their natural curls, coils, and kinks.</p>
+</section>
+
+<section class="hair-types">
+  <h2>Hair Types</h2>
+  <div class="hair-cards">
+    <div class="hair-card"><span></span>2C</div>
+    <div class="hair-card"><span></span>3A</div>
+    <div class="hair-card"><span></span>3B</div>
+    <div class="hair-card"><span></span>3C</div>
+    <div class="hair-card"><span></span>4A</div>
+    <div class="hair-card"><span></span>4B</div>
+    <div class="hair-card"><span></span>4C</div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="testimonial active">
+    <p>"HeyCurlfriend makes wash day fun again!"</p>
+    <h3>- Lewa</h3>
+  </div>
+  <div class="testimonial">
+    <p>"I finally feel my coils are loved 💖"</p>
+    <h3>- Bukky</h3>
+  </div>
+  <div class="testimonial">
+    <p>"The hair tips are amazing and easy to follow!"</p>
+    <h3>- Lala</h3>
+  </div>
+</section>
+
 <div class="cards-container">
-  <!-- Login Card -->
-  <div class="form-card" id="login-card">
+  <!-- Login -->
+  <div class="form-card">
     <h2>Login</h2>
     <label>Username</label>
-    <input type="text" id="login-username" placeholder="Your username">
+    <input type="text" id="login-username">
     <label>Password</label>
-    <input type="password" id="login-password" placeholder="Your password">
-    <button onclick="login()">Login</button>
+    <input type="password" id="login-password">
+    <button onclick="showLoading()">Login</button>
   </div>
 
-  <!-- Sign Up Card -->
-  <div class="form-card" id="signup-card">
+  <!-- Sign Up -->
+  <div class="form-card">
     <h2>Sign Up</h2>
     <label>First Name</label><input type="text" id="first-name">
     <label>Last Name</label><input type="text" id="last-name">
@@ -101,51 +204,36 @@
     <label>Username</label><input type="text" id="signup-username">
     <label>Password</label><input type="password" id="signup-password">
     <label>Verify Password</label><input type="password" id="verify-password">
-    <button onclick="signup()">Sign Up</button>
+    <button onclick="showLoading()">Sign Up</button>
   </div>
 </div>
 
-<!-- Loading Screen -->
 <div id="loading">
   <div class="spinner"></div>
   <div>Curlfriend is getting your crown ready 💖</div>
 </div>
 
-<!-- Home Section -->
-<div id="home">
-  <h2>Explore Your Hair Types</h2>
-  <div class="hair-cards">
-    <div class="hair-card" data-msg="Waves are magic 🌊">2C</div>
-    <div class="hair-card" data-msg="Curls shine bright ✨">3A</div>
-    <div class="hair-card" data-msg="Springy curls 💕">3B</div>
-    <div class="hair-card" data-msg="Coils are beautiful 🌸">3C</div>
-    <div class="hair-card" data-msg="Coily & thriving 💧">4A</div>
-    <div class="hair-card" data-msg="Proud coils 👑">4B</div>
-    <div class="hair-card" data-msg="Your coils are magic ✨">4C</div>
-  </div>
-</div>
-
-<footer>
-  &copy; 2025 Hey, Curlfriend! • <a href="#">About</a>
-</footer>
+<footer>est. 2025 Hey, Curlfriend.</footer>
 
 <script>
-function showLoading(callback){
-  document.getElementById('cards-container')?.style.display='none';
-  document.getElementById('login-card').style.display='none';
-  document.getElementById('signup-card').style.display='none';
+// Testimonials Slider
+let index = 0;
+const slides = document.querySelectorAll('.testimonial');
+setInterval(()=>{
+  slides[index].classList.remove('active');
+  index = (index+1)%slides.length;
+  slides[index].classList.add('active');
+},3000);
+
+// Loading Simulation
+function showLoading(){
+  document.querySelectorAll('.form-card').forEach(c=>c.style.display='none');
   document.getElementById('loading').style.display='flex';
-  setTimeout(callback,2000);
-}
-
-function login(){
-  // Here you could validate username/password
-  showLoading(()=>{document.getElementById('loading').style.display='none'; document.getElementById('home').style.display='block';});
-}
-
-function signup(){
-  // Here you could validate inputs
-  showLoading(()=>{document.getElementById('loading').style.display='none'; document.getElementById('home').style.display='block';});
+  setTimeout(()=>{
+    document.getElementById('loading').style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+    // could reveal Home section if needed
+  },2000);
 }
 </script>
 
