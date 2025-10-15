@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hey, Curlfriend!</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    /* 🌸 Color Palette */
+    :root {
+      --dark-brown: #3B2F2F;
+      --beige: #F4E9DC;
+      --black: #000000;
+      --gold: #C9A86A;
+      --hover-gold: #D6A77A;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    body {
+      background-color: var(--beige);
+      color: var(--dark-brown);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--dark-brown);
+    }
+
+    /* 🌸 Header */
+    header {
+      background-color: var(--dark-brown);
+      color: var(--beige);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    header .btn {
+      background-color: var(--gold);
+      color: var(--dark-brown);
+      padding: 0.7rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+
+    header .btn:hover {
+      background-color: var(--hover-gold);
+      cursor: pointer;
+    }
+
+    /* 🌸 Hair Types Section */
+    .hair-types {
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+
+    .hair-types h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hair-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .hair-card {
+      background-color: var(--beige);
+      border: 2px solid var(--dark-brown);
+      border-radius: 15px;
+      width: 150px;
+      padding: 1rem;
+      transition: 0.3s;
+    }
+
+    .hair-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .hair-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+    }
+
+    /* 🌸 Footer */
+    footer {
+      background-color: var(--dark-brown);
+      color: var(--beige);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      font-weight: 600;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header / Hero -->
+  <header>
+    <h1>Hey, Curlfriend!</h1>
+    <p>Your digital bestie for loving, learning, and caring for your crown 💕</p>
+    <a href="#hair-types" class="btn">Meet Your Curlfriend →</a>
+  </header>
+
+  <!-- Hair Types Section -->
+  <section id="hair-types" class="hair-types">
+    <h2>Explore Your Hair Type</h2>
+    <div class="hair-cards">
+      <div class="hair-card">
+        <img src="https://via.placeholder.com/150" alt="2A Hair">
+        <h3>2A</h3>
+        <p>Loose waves, low maintenance, easy to style.</p>
+      </div>
+      <div class="hair-card">
+        <img src="https://via.placeholder.com/150" alt="3B Hair">
+        <h3>3B</h3>
+        <p>Springy curls, prone to frizz, lots of volume.</p>
+      </div>
+      <div class="hair-card">
+        <img src="https://via.placeholder.com/150" alt="4C Hair">
+        <h3>4C</h3>
+        <p>Coily, tightly packed curls, needs moisture & love 💧.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Hey, Curlfriend! • <a href="#">About</a> • <a href="#">Login</a> • <a href="#">Sign Up</a></p>
+  </footer>
+
+</body>
+</html>
