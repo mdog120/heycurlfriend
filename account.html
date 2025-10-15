@@ -1,241 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hey Curlfriend - Account</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --pink1:#FADADD; --pink2:#FFD1DC; --pink3:#FFC0CB;
-  --brown1:#D4A373; --brown2:#A0522D; --brown3:#5C3A21;
-  --card:#fffafc; --button-pink:#F9C0D3; --button-hover:#F7A1C0;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hey Curlfriend | Account</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #fde8ed;
+      color: #3b2a1a;
+      overflow-x: hidden;
+    }
 
-body{margin:0; font-family:'Nunito',sans-serif; color:var(--brown3); background:var(--pink1); overflow-x:hidden;}
-nav{display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:var(--pink3); box-shadow:0 4px 10px rgba(0,0,0,0.1); position:sticky; top:0; z-index:10;}
-nav .logo{font-family:'Pacifico',cursive; font-size:1.8rem; color:var(--brown3);}
-nav ul{display:flex; list-style:none; gap:1.5rem; margin:0; padding:0;}
-nav ul li a{text-decoration:none; color:var(--brown3); font-weight:700; transition:0.3s;}
-nav ul li a:hover{color:var(--brown2);}
-.container{max-width:1100px; margin:2rem auto; padding:1rem;}
+    /* Navbar */
+    nav {
+      background-color: #f7cdd1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 40px;
+      border-bottom: 2px solid #b48a78;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-/* Profile Card */
-.profile-card{background:var(--card); border:2px solid var(--pink2); border-radius:25px; padding:2rem; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.1); margin-bottom:2rem; position:relative; animation:fadeUp 1s ease forwards; opacity:0;}
-.profile-pic{width:100px; height:100px; border-radius:50%; background:var(--pink2); margin:0 auto 1rem;}
-.profile-card h2{font-family:'Pacifico',cursive; font-size:2rem;}
-.edit-btn{background:var(--button-pink); border:none; border-radius:20px; padding:0.5rem 1rem; font-weight:700; cursor:pointer; transition:0.3s;}
-.edit-btn:hover{background:var(--button-hover);}
+    nav h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.8em;
+      color: #3b2a1a;
+      font-weight: 600;
+    }
 
-/* Hair Type Snapshot */
-.hairtype-card{background:var(--card); border-radius:25px; border:2px solid var(--brown1); padding:2rem; box-shadow:0 8px 20px rgba(0,0,0,0.1); margin-bottom:2rem; animation:fadeUp 1s ease forwards; opacity:0;}
-.hairtype-card h3{font-size:1.5rem; margin-bottom:0.5rem;}
-.hairtype-card button{background:var(--button-pink); border:none; padding:0.6rem 1rem; border-radius:25px; cursor:pointer; transition:0.3s;}
-.hairtype-card button:hover{background:var(--button-hover);}
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
 
-/* Recommendations */
-.recs{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; margin-bottom:2rem;}
-.rec-card{background:var(--card); border:2px solid var(--pink2); border-radius:25px; padding:1.5rem; text-align:center; box-shadow:0 6px 15px rgba(0,0,0,0.1); transition:transform 0.3s; opacity:0;}
-.rec-card:hover{transform:scale(1.05);}
-.rec-card.visible{opacity:1;}
+    nav ul li a {
+      text-decoration: none;
+      color: #3b2a1a;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
 
-/* Find Stylists */
-.find-stylist{text-align:center; margin:3rem 0;}
-.find-stylist button{background:var(--brown2); color:white; border:none; border-radius:25px; padding:0.8rem 1.5rem; font-size:1rem; cursor:pointer; transition:0.3s;}
-.find-stylist button:hover{background:var(--brown3);}
+    nav ul li a:hover {
+      color: #a16448;
+    }
 
-/* Wishlist */
-.wishlist{background:var(--card); border:2px solid var(--pink2); border-radius:25px; padding:2rem; text-align:center; box-shadow:0 8px 20px rgba(0,0,0,0.1); margin-bottom:2rem; opacity:0;}
-.wishlist.visible{opacity:1;}
+    /* Containers */
+    .container {
+      width: 85%;
+      margin: 30px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      animation: fadeIn 0.8s ease-in;
+    }
 
-/* Footer/Settings */
-footer{background:var(--brown3); color:var(--pink1); text-align:center; padding:2rem; border-top:3px solid var(--pink2);}
-footer button{background:var(--button-pink); border:none; border-radius:25px; padding:0.5rem 1rem; margin:0.3rem; cursor:pointer; transition:0.3s; font-weight:700;}
-footer button:hover{background:var(--button-hover);}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* Modals */
-.modal-bg{position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; z-index:20;}
-.modal{background:var(--card); padding:2rem; border-radius:25px; max-width:400px; width:90%; text-align:center; position:relative;}
-.modal input{width:90%; padding:0.5rem; margin:0.5rem 0; border-radius:10px; border:1px solid var(--brown2);}
-.modal button{margin-top:1rem;}
+    .card {
+      background-color: #fff8f9;
+      border: 2px solid #b48a78;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
 
-/* Animations */
-@keyframes fadeUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
-</style>
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #3b2a1a;
+      font-family: "Playfair Display", serif;
+    }
+
+    button {
+      background-color: #b48a78;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #a16448;
+    }
+
+    .recommendations, .wishlist-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .mini-card {
+      background-color: #fde8ed;
+      border: 1px solid #b48a78;
+      border-radius: 12px;
+      padding: 15px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f7cdd1;
+      text-align: center;
+      border-top: 2px solid #b48a78;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      border: 2px solid #b48a78;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #b48a78;
+      border-radius: 6px;
+    }
+  </style>
 </head>
-
 <body>
 
-<nav>
-  <div class="logo">Hey Curlfriend</div>
-  <ul>
-    <li><a href="home.html">Home</a></li>
-    <li><a href="account.html">Account</a></li>
-    <li><a href="quiz.html">Hair Types Quiz</a></li>
-    <li><a href="routines.html">Hair Routines</a></li>
-    <li><a href="products.html">Hair Products</a></li>
-  </ul>
-</nav>
+  <nav>
+    <h1>Hey Curlfriend</h1>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="account.html">Account</a></li>
+      <li><a href="quiz.html">Hair Type Quiz</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="products.html">Products</a></li>
+    </ul>
+  </nav>
 
-<div class="container">
-  <!-- Profile Section -->
-  <div class="profile-card">
-    <div class="profile-pic" id="profilePic"></div>
-    <h2 id="username">Hey, Curlfriend!</h2>
-    <p id="emailText"><strong>Email:</strong></p>
-    <p id="dobText"><strong>Date of Birth:</strong></p>
-    <button class="edit-btn" id="editProfileBtn">Edit Profile</button>
+  <div class="container">
+    <!-- Profile -->
+    <div class="card" id="profile-card">
+      <h2>Welcome, <span id="username-display">Curlfriend</span> 💕</h2>
+      <p>Email: <span id="email-display">—</span></p>
+      <p>Date of Birth: <span id="dob-display">—</span></p>
+      <button id="edit-profile">Edit Profile</button>
+    </div>
+
+    <!-- Hair Type Snapshot -->
+    <div class="card" id="hair-type-card">
+      <h2>Your Hair Type Snapshot 🌀</h2>
+      <p id="hairtype-result">You haven’t taken the quiz yet!</p>
+      <p id="hairtype-tip"></p>
+      <button id="retake-quiz">Take or Retake Quiz</button>
+    </div>
+
+    <!-- Personalized Recommendations -->
+    <div class="card">
+      <h2>Personalized Recommendations 🧴</h2>
+      <div class="recommendations">
+        <div class="mini-card" id="product-rec">Products You’ll Love</div>
+        <div class="mini-card" id="routine-rec">Suggested Routines</div>
+        <div class="mini-card" id="style-rec">Protective Styles</div>
+      </div>
+    </div>
+
+    <!-- Find Stylists -->
+    <div class="card">
+      <h2>Find Stylists Near You 💇🏽‍♀️</h2>
+      <button onclick="alert('Feature coming soon! 💕')">Find Black Hair Stylists Near Me</button>
+    </div>
+
+    <!-- Wishlist -->
+    <div class="card">
+      <h2>Your Wishlist 🛍️</h2>
+      <div class="wishlist-items" id="wishlist-items">
+        <p>You haven’t saved anything yet — start exploring! ✨</p>
+      </div>
+    </div>
+
+    <!-- Account Settings -->
+    <div class="card">
+      <h2>Account Settings ⚙️</h2>
+      <button onclick="window.location.href='change-password.html'">Change Password</button>
+      <button id="delete-account" style="background-color:#d16b6b;">Delete Account</button>
+      <button id="logout" style="background-color:#b48a78;">Log Out</button>
+    </div>
   </div>
 
-  <!-- Hair Type Snapshot -->
-  <div class="hairtype-card">
-    <h3>Your Hair Type: <span id="hairType">Not taken yet</span></h3>
-    <p id="hairFacts">Take the quiz to see your hair type and get personalized tips! 💕</p>
-    <button onclick="window.location.href='quiz.html'">Retake Quiz</button>
+  <div class="footer">
+    Hey Curlfriend © 2025 — Made with love and cocoa butter 💕
   </div>
 
-  <!-- Personalized Recommendations -->
-  <h3 style="text-align:center;margin-bottom:1rem;">Personalized Recommendations</h3>
-  <div class="recs">
-    <div class="rec-card" id="productRec"><h4>Products You’ll Love</h4><p></p></div>
-    <div class="rec-card" id="routineRec"><h4>Suggested Routines</h4><p></p></div>
-    <div class="rec-card" id="styleRec"><h4>Protective Styles</h4><p></p></div>
+  <!-- Edit Profile Modal -->
+  <div class="modal" id="edit-modal">
+    <div class="modal-content">
+      <h3>Edit Profile</h3>
+      <input type="text" id="edit-name" placeholder="Name" />
+      <input type="email" id="edit-email" placeholder="Email" />
+      <input type="date" id="edit-dob" placeholder="Date of Birth" />
+      <button id="save-profile">Save Changes</button>
+    </div>
   </div>
 
-  <!-- Find Stylists -->
-  <div class="find-stylist">
-    <button onclick="alert('Feature coming soon!')">Find Black Hair Stylists Near Me 💇🏽‍♀️</button>
-  </div>
+  <script>
+    const usernameDisplay = document.getElementById('username-display');
+    const emailDisplay = document.getElementById('email-display');
+    const dobDisplay = document.getElementById('dob-display');
+    const hairTypeDisplay = document.getElementById('hairtype-result');
+    const hairTypeTip = document.getElementById('hairtype-tip');
 
-  <!-- Wishlist -->
-  <div class="wishlist" id="wishlist">
-    <h3>Your Saved Items</h3>
-    <p>You haven’t saved anything yet — start exploring! ✨</p>
-  </div>
-</div>
+    // Load data
+    const user = JSON.parse(localStorage.getItem('user')) || {};
+    const hairType = localStorage.getItem('hairType');
 
-<!-- Footer / Account Settings -->
-<footer>
-  <button onclick="window.location.href='change-password.html'">Change Password</button>
-  <button id="deleteAccountBtn">Delete Account</button>
-  <button id="logoutBtn">Log Out</button>
-  <p style="margin-top:1rem;">est. 2025 Hey Curlfriend</p>
-</footer>
+    if (user.username) usernameDisplay.textContent = user.username;
+    if (user.email) emailDisplay.textContent = user.email;
+    if (user.dob) dobDisplay.textContent = user.dob;
+    if (hairType) {
+      hairTypeDisplay.textContent = hairType;
+      hairTypeTip.textContent = getHairTip(hairType);
+    }
 
-<!-- Edit Profile Modal -->
-<div class="modal-bg" id="editModal">
-  <div class="modal">
-    <h3>Edit Profile</h3>
-    <input type="text" id="editName" placeholder="Full Name">
-    <input type="email" id="editEmail" placeholder="Email">
-    <input type="date" id="editDOB" placeholder="Date of Birth">
-    <button id="saveEditBtn">Save    </button>
-    <button onclick="closeModal()">Cancel</button>
-  </div>
-</div>
+    // Tips based on hair type
+    function getHairTip(type) {
+      const tips = {
+        "2C": "Soft waves that love light products and anti-frizz care.",
+        "3A": "Loose curls that need gentle hydration and definition.",
+        "3B": "Springy curls that crave moisture and curl creams.",
+        "3C": "Tight curls that thrive with deep conditioning.",
+        "4A": "Defined coils that love LOC method and gentle detangling.",
+        "4B": "Z-pattern curls that need rich butters and moisture lock.",
+        "4C": "Tight, beautiful coils that need deep moisture and protection."
+      };
+      return tips[type] || "Take the quiz to find your personalized care tips!";
+    }
 
-<!-- Delete Account Confirmation Modal -->
-<div class="modal-bg" id="deleteModal">
-  <div class="modal">
-    <h3>Are you sure?</h3>
-    <p>Deleting your account will remove all your data permanently.</p>
-    <button id="confirmDeleteBtn">Yes, Delete</button>
-    <button onclick="closeDeleteModal()">Cancel</button>
-  </div>
-</div>
+    // Edit Profile Modal
+    const modal = document.getElementById('edit-modal');
+    const editBtn = document.getElementById('edit-profile');
+    const saveBtn = document.getElementById('save-profile');
 
-<script>
-// --------- Helper Functions ----------
-function getUserData(){
-  return {
-    fullName: localStorage.getItem('fullName') || '',
-    username: localStorage.getItem('username') || 'Curlfriend',
-    email: localStorage.getItem('email') || '',
-    dob: localStorage.getItem('dob') || '',
-    hairType: localStorage.getItem('hairType') || '',
-    recommendations: JSON.parse(localStorage.getItem('recommendations') || '{}'),
-    wishlist: JSON.parse(localStorage.getItem('wishlist') || '[]'),
-    profilePic: localStorage.getItem('profilePic') || ''
-  };
-}
+    editBtn.onclick = () => {
+      modal.style.display = 'flex';
+      document.getElementById('edit-name').value = user.username || '';
+      document.getElementById('edit-email').value = user.email || '';
+      document.getElementById('edit-dob').value = user.dob || '';
+    };
 
-function populateAccount(){
-  const user = getUserData();
-  document.getElementById('username').textContent = `Hey, ${user.username}!`;
-  document.getElementById('emailText').innerHTML = `<strong>Email:</strong> ${user.email || 'Not set'}`;
-  document.getElementById('dobText').innerHTML = `<strong>Date of Birth:</strong> ${user.dob || 'Not set'}`;
-  
-  // Profile Pic
-  const picEl = document.getElementById('profilePic');
-  if(user.profilePic) picEl.style.backgroundImage = `url('${user.profilePic}')`; 
-  else picEl.style.backgroundColor = 'var(--pink2)';
+    saveBtn.onclick = () => {
+      user.username = document.getElementById('edit-name').value;
+      user.email = document.getElementById('edit-email').value;
+      user.dob = document.getElementById('edit-dob').value;
+      localStorage.setItem('user', JSON.stringify(user));
+      modal.style.display = 'none';
+      location.reload();
+    };
 
-  // Hair Type Snapshot
-  if(user.hairType){
-    document.getElementById('hairType').textContent = user.hairType;
-    document.getElementById('hairFacts').textContent = "Here are some quick tips for your hair type!";
-  }
+    window.onclick = (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    };
 
-  // Recommendations
-  document.getElementById('productRec').querySelector('p').textContent = user.recommendations.products ? user.recommendations.products.join(', ') : 'Take the quiz to see product recommendations!';
-  document.getElementById('routineRec').querySelector('p').textContent = user.recommendations.routines ? user.recommendations.routines.join(', ') : 'Take the quiz to see routine suggestions!';
-  document.getElementById('styleRec').querySelector('p').textContent = user.recommendations.styles ? user.recommendations.styles.join(', ') : 'Take the quiz to see protective styles!';
+    // Delete Account
+    document.getElementById('delete-account').onclick = () => {
+      if (confirm('Are you sure you want to delete your account?')) {
+        localStorage.clear();
+        window.location.href = 'index.html';
+      }
+    };
 
-  // Wishlist
-  const wishEl = document.getElementById('wishlist');
-  if(user.wishlist.length > 0){
-    wishEl.innerHTML = `<h3>Your Saved Items</h3><ul>${user.wishlist.map(item => `<li>${item}</li>`).join('')}</ul>`;
-  }
+    // Log Out
+    document.getElementById('logout').onclick = () => {
+      window.location.href = 'index.html';
+    };
 
-  // Fade in animations
-  document.querySelectorAll('.rec-card, .wishlist, .profile-card, .hairtype-card').forEach((el, idx)=>{
-    setTimeout(()=>{el.classList.add('visible');}, idx*150);
-  });
-}
-
-// --------- Edit Profile Modal ----------
-const editModal = document.getElementById('editModal');
-const editBtn = document.getElementById('editProfileBtn');
-const saveEditBtn = document.getElementById('saveEditBtn');
-
-editBtn.onclick = ()=>{
-  const user = getUserData();
-  document.getElementById('editName').value = user.fullName;
-  document.getElementById('editEmail').value = user.email;
-  document.getElementById('editDOB').value = user.dob;
-  editModal.style.display = 'flex';
-};
-function closeModal(){ editModal.style.display = 'none'; }
-
-saveEditBtn.onclick = ()=>{
-  localStorage.setItem('fullName', document.getElementById('editName').value);
-  localStorage.setItem('email', document.getElementById('editEmail').value);
-  localStorage.setItem('dob', document.getElementById('editDOB').value);
-  closeModal();
-  populateAccount();
-};
-
-// --------- Delete Account Modal ----------
-const deleteModal = document.getElementById('deleteModal');
-const deleteBtn = document.getElementById('deleteAccountBtn');
-const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-
-deleteBtn.onclick = ()=>{ deleteModal.style.display='flex'; }
-function closeDeleteModal(){ deleteModal.style.display='none'; }
-confirmDeleteBtn.onclick = ()=>{
-  localStorage.clear();
-  window.location.href='index.html';
-};
-
-// --------- Log Out ----------
-document.getElementById('logoutBtn').onclick = ()=>{
-  window.location.href='index.html';
-};
-
-// Populate account page on load
-window.onload = populateAccount;
-</script>
-
+    // Retake Quiz
+    document.getElementById('retake-quiz').onclick = () => {
+      window.location.href = 'quiz.html';
+    };
+  </script>
 </body>
 </html>
-
