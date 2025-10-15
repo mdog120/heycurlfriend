@@ -12,39 +12,114 @@
   --card:#fffafc; --button-pink:#F9C0D3; --button-hover:#F7A1C0;
 }
 
-body{
-  margin:0;
-  font-family:'Nunito',sans-serif;
-  color:var(--brown3);
-  background:var(--pink1);
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  color: var(--brown3);
+  background: var(--pink1);
 }
 
 /* Navbar */
-nav{
-  display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem;
-  background:var(--pink3); box-shadow:0 4px 10px rgba(0,0,0,0.1); position:sticky; top:0; z-index:10;
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 2rem;
+  background: var(--pink3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: sticky; top: 0; z-index: 10;
 }
-nav .logo{font-family:'Pacifico',cursive; font-size:1.8rem; color:var(--brown3);}
-nav ul{display:flex; list-style:none; gap:1.5rem; margin:0; padding:0;}
-nav ul li a{text-decoration:none; color:var(--brown3); font-weight:700; transition:0.3s;}
-nav ul li a:hover{color:var(--brown2);}
+nav .logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.8rem;
+  color: var(--brown3);
+}
+nav ul {
+  display: flex; list-style: none; gap: 1.5rem; margin: 0; padding: 0;
+}
+nav ul li a {
+  text-decoration: none; color: var(--brown3); font-weight: 700;
+  transition: 0.3s;
+}
+nav ul li a:hover { color: var(--brown2); }
 
-/* Container & Cards */
-.container{max-width:900px; margin:2rem auto; padding:1rem;}
-#progressContainer{background:var(--pink2); border-radius:25px; height:15px; margin-bottom:1.5rem; overflow:hidden;}
-#progressBar{background:var(--brown2); width:0%; height:100%; transition:width 0.4s ease;}
-.quiz-card, #resultSection{background:var(--card); border-radius:25px; border:2px solid var(--pink2); padding:2rem; margin-bottom:2rem; box-shadow:0 10px 25px rgba(0,0,0,0.1); transition:opacity 0.3s ease;}
-.quiz-card h3{margin-bottom:1rem;}
-.options{display:flex; flex-direction:column; gap:0.8rem;}
-.options button{background:var(--button-pink); border:none; border-radius:25px; padding:0.7rem; cursor:pointer; font-weight:700; transition:0.3s;}
-.options button:hover{background:var(--button-hover); transform:scale(1.05);}
-#nextBtn, #restartBtn{background:var(--brown2); color:white; padding:0.8rem 1.5rem; border:none; border-radius:25px; font-weight:700; cursor:pointer; margin-top:1rem; transition:0.3s;}
-#nextBtn:hover,#restartBtn:hover{background:var(--brown3); transform:scale(1.05);}
-#resultSection{display:none; text-align:center; animation:fadeUp 1s ease forwards; opacity:0;}
-#resultSection h2{font-family:'Pacifico',cursive; font-size:2rem; margin-bottom:1rem;}
-#resultSection p{margin-bottom:1rem;}
-#confettiCanvas{position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:20;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
+/* Quiz layout */
+.container { max-width: 900px; margin: 2rem auto; padding: 1rem; }
+#progressContainer {
+  background: var(--pink2);
+  border-radius: 25px; height: 15px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+#progressBar {
+  background: var(--brown2);
+  width: 0%; height: 100%;
+  transition: width 0.4s ease;
+}
+.quiz-card, #resultSection {
+  background: var(--card);
+  border-radius: 25px;
+  border: 2px solid var(--pink2);
+  padding: 2rem; margin-bottom: 2rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: opacity 0.3s ease;
+}
+.quiz-card h3 { margin-bottom: 1.5rem; text-align: center; }
+
+/* Circle answer buttons */
+.options {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1rem;
+}
+.options button {
+  background: var(--button-pink);
+  border: 3px solid var(--brown1);
+  border-radius: 50%;
+  width: 120px; height: 120px;
+  font-weight: 700;
+  color: var(--brown3);
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.options button.selected {
+  background: var(--button-hover);
+  transform: scale(1.1);
+  border-color: var(--brown3);
+}
+.options button:hover {
+  background: var(--button-hover);
+  transform: scale(1.05);
+}
+#nextBtn, #restartBtn {
+  background: var(--brown2); color: white;
+  padding: 0.8rem 1.5rem; border: none;
+  border-radius: 25px; font-weight: 700;
+  cursor: pointer; margin-top: 1.5rem;
+  transition: 0.3s;
+}
+#nextBtn:hover, #restartBtn:hover {
+  background: var(--brown3); transform: scale(1.05);
+}
+#resultSection {
+  display: none; text-align: center;
+  animation: fadeUp 1s ease forwards; opacity: 0;
+}
+#resultSection h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2rem; margin-bottom: 1rem;
+}
+#resultSection p { margin-bottom: 1rem; }
+#confettiCanvas {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 20;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
@@ -82,28 +157,63 @@ nav ul li a:hover{color:var(--brown2);}
 <canvas id="confettiCanvas"></canvas>
 
 <script>
-// ---------- Quiz Data ----------
+// ---------- Hair Type Info ----------
+const hairTypeInfo = {
+  "2C": {desc:"Wavy with strong S-shaped patterns, tends to frizz and flatten easily.",
+         prone:"Frizz, loss of volume at roots.",
+         celebs:"Jourdan Dunn, Lorde"},
+  "3A": {desc:"Loose, defined curls with shine and bounce.",
+         prone:"Flat roots and oil buildup.",
+         celebs:"Zendaya, Kelly Rowland"},
+  "3B": {desc:"Springy ringlets that need hydration.",
+         prone:"Frizz and dryness.",
+         celebs:"Yara Shahidi, Alicia Keys"},
+  "3C": {desc:"Tight corkscrew curls full of volume.",
+         prone:"Shrinkage and dryness.",
+         celebs:"Lupita Nyong’o, Tracee Ellis Ross"},
+  "4A": {desc:"Defined, dense coils that retain moisture well when hydrated.",
+         prone:"Shrinkage and tangling.",
+         celebs:"Solange Knowles, Janelle Monáe"},
+  "4B": {desc:"Z-pattern coils with less definition and high shrinkage.",
+         prone:"Dryness and breakage.",
+         celebs:"Issa Rae, Viola Davis"},
+  "4C": {desc:"Tight, beautiful coils with minimal definition and maximum shrinkage.",
+         prone:"Extreme dryness, shrinkage, breakage.",
+         celebs:"Lupita Nyong’o, Erykah Badu"}
+};
+
+// ---------- Quiz Questions ----------
 const quizData = [
-  {question:"When you wash your hair, what happens?", options:["Falls in chunks","Tangles slightly","Shrinks a bit","Slight shrinkage","Springs back","Very tight coils"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Curl pattern mostly looks like:", options:["Zig-zag tight coils","Springy coils","Soft coils","Defined curls","Loose curls","Loose waves"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Hair texture feels:", options:["Fragile & coarse","Coarse & strong","Coily & soft","Soft & springy","Soft & fine","Silky & fine"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Shrinkage after washing:", options:["80-90%","60-70%","50-60%","40-50%","20-30%","10-20%"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Hair breakage tendency:", options:["High","Moderate-high","Moderate","Low-moderate","Low","Very low"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Daily styling takes:", options:["30+ min","25-30 min","20-25 min","15-20 min","10-15 min","5-10 min"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Best protective style:", options:["Twists/Braids","Twist-outs","Braids/Twist-out","Wash & Go","Defined curls","Loose styles"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Porosity:", options:["High","High-medium","Medium","Medium-low","Low","Very low"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Reaction to humidity:", options:["Frizzes instantly","Frizzes a lot","Frizzes moderately","Slight frizz","Barely frizzes","Minimal frizz"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Daily moisture needs:", options:["Very high","High","Moderate-high","Medium","Medium-low","Low"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Hair density:", options:["Very dense","Dense","Medium-high","Medium","Medium-low","Low"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Shrinkage wet vs dry:", options:["Extremely high","High","Moderate-high","Medium","Medium-low","Low"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Hair prone to:", options:["Breakage & dryness","Dry ends","Split ends","Split ends occasionally","Frizz","Resilient"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Curl definition without products:", options:["Minimal","Moderate","Moderate","Good","Good","Very good"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Elasticity:", options:["Low","Low-medium","Medium","Medium-high","High","Very high"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Porous ends?", options:["Very porous","Porous","Slightly porous","Medium","Low","Very low"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Curl spring back:", options:["Little","Moderate","Good","Good","Very good","Excellent"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Frizz management:", options:["Difficult","Medium","Medium","Easy","Easy","Very easy"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Celebrity inspiration:", options:["Beyoncé, Viola Davis","Tracee Ellis Ross, Yara Shahidi","Solange, Janelle Monae","Kerry Washington, Lupita Nyong'o","Zendaya, Kelly Rowland","Sarah Hyland, Naomi Osaka"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Overall curl type:", options:["Coily tight","Coily springy","Coily soft","Curly tight","Curly loose","Wavy"], values:["4C","4B","4A","3C","3B","3A"]}
+  {question:"When you wash your hair, what happens?",
+   options:["Falls in chunks","Shrinks slightly","Springs back","Tight coils"],
+   values:["3A","3B","3C","4C"]},
+  {question:"How does your curl pattern look?",
+   options:["Loose waves","Soft curls","Springy curls","Tiny coils"],
+   values:["2C","3A","3B","4C"]},
+  {question:"How much shrinkage after washing?",
+   options:["10%","30%","50%","80%"],
+   values:["2C","3A","3C","4C"]},
+  {question:"What best describes your hair texture?",
+   options:["Fine and soft","Soft and defined","Coarse and coily","Very dense and tight"],
+   values:["2C","3A","4A","4C"]},
+  {question:"How easily does your hair frizz?",
+   options:["Barely","Sometimes","Often","All the time!"],
+   values:["2C","3B","3C","4C"]},
+  {question:"Your hair’s moisture needs are:",
+   options:["Low","Medium","High","Very high"],
+   values:["2C","3B","4A","4C"]},
+  {question:"Your curls look most similar to:",
+   options:["Jourdan Dunn","Zendaya","Yara Shahidi","Viola Davis"],
+   values:["2C","3A","3B","4B"]},
+  {question:"After detangling, your curls:",
+   options:["Stay stretched","Shrink slightly","Shrink halfway","Shrink a lot"],
+   values:["2C","3B","3C","4C"]},
+  {question:"How thick or dense is your hair?",
+   options:["Light","Medium","Thick","Super dense"],
+   values:["2C","3B","3C","4C"]},
+  {question:"When dry, your hair feels:",
+   options:["Silky","Soft","Coarse","Fragile"],
+   values:["2C","3A","3C","4C"]}
 ];
 
 let currentQ=0;
@@ -122,8 +232,9 @@ function showQuestion(){
     const btn=document.createElement('button');
     btn.textContent=opt;
     btn.onclick=()=>{
+      document.querySelectorAll('.options button').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
       hairScore[q.values[i]]++;
-      optionsContainer.parentElement.style.opacity=0;
       setTimeout(()=>{
         if(currentQ<quizData.length-1){
           currentQ++;
@@ -131,8 +242,7 @@ function showQuestion(){
         } else {
           showResults();
         }
-        optionsContainer.parentElement.style.opacity=1;
-      }, 300);
+      },400);
     };
     optionsContainer.appendChild(btn);
   });
@@ -140,12 +250,14 @@ function showQuestion(){
 
 function showResults(){
   const maxType=Object.keys(hairScore).reduce((a,b)=>hairScore[a]>hairScore[b]?a:b);
+  const info=hairTypeInfo[maxType];
   document.getElementById('finalHairType').textContent=maxType;
-  document.getElementById('resultDescription').textContent="Your curls are beautiful and unique! Here's a little info:";
-  document.getElementById('proneTo').textContent="Prone to dryness, shrinkage, and requires consistent moisture.";
-  document.getElementById('celebs').textContent="Celebrities with this hair type: "+quizData.find(q=>q.values.includes(maxType)).options[quizData.find(q=>q.values.includes(maxType)).values.indexOf(maxType)];
+  document.getElementById('resultDescription').textContent=info.desc;
+  document.getElementById('proneTo').textContent="Prone to: "+info.prone;
+  document.getElementById('celebs').textContent="Celebrities: "+info.celebs;
   document.getElementById('quizContainer').style.display='none';
   document.getElementById('resultSection').style.display='block';
+  localStorage.setItem('hairType',maxType);
   launchConfetti();
 }
 
@@ -158,14 +270,14 @@ document.getElementById('restartBtn').onclick=()=>{
 };
 
 // ---------- Confetti ----------
-function launchConfetti() {
+function launchConfetti(){
   const canvas=document.getElementById('confettiCanvas');
   const ctx=canvas.getContext('2d');
   canvas.width=window.innerWidth;
   canvas.height=window.innerHeight;
   const confettis=[];
   const colors=["#F9C0D3","#FFD1DC","#FFC0CB","#D4A373","#A0522D","#5C3A21"];
-  for(let i=0;i<150;i++){
+  for(let i=0;i<120;i++){
     confettis.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-100,r:Math.random()*6+4,d:Math.random()*40,color:colors[Math.floor(Math.random()*colors.length)],tilt:Math.random()*10-10,tiltAngle:0,tiltAngleIncrement:Math.random()*0.07+0.05});
   }
   function draw(){
@@ -188,9 +300,7 @@ function launchConfetti() {
   draw();
 }
 
-// Initialize quiz
 showQuestion();
 </script>
-
 </body>
 </html>
