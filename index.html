@@ -19,6 +19,7 @@ body{
   font-family:'Nunito',sans-serif;
   background-color:var(--primary-pink);
   color:var(--accent-brown);
+  line-height:1.6;
 }
 
 /* Header */
@@ -35,78 +36,41 @@ header p{
   margin-top:0;
 }
 
-/* About */
-section.about{
-  max-width:800px;
+/* Sections */
+section{
+  max-width:900px;
   margin:2rem auto;
   padding:2rem;
   background:var(--card-white);
   border-radius:20px;
   box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* About */
+.about h2{
+  font-size:2rem;
+  margin-bottom:1rem;
   text-align:center;
+}
+.about p{
+  margin-bottom:1rem;
 }
 
 /* Hair Types */
-section.hair-types{
-  text-align:center;
-  margin:3rem 1rem;
-}
 .hair-types h2{
   font-size:2rem;
-  margin-bottom:2rem;
+  margin-bottom:1rem;
+  text-align:center;
 }
-.hair-cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
-  gap:2rem;
-  justify-items:center;
+.hair-type{
+  margin-bottom:1.5rem;
 }
-.hair-card{
-  width:100px;
-  height:140px;
-  background:var(--card-white);
-  border-radius:20px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.1);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-end;
-  padding-bottom:10px;
-  transition:transform 0.3s;
+.hair-type h3{
+  margin-bottom:0.3rem;
 }
-.hair-card:hover{transform:translateY(-5px);}
-.curl{
-  width:6px;
-  height:60px;
-  background:var(--accent-brown);
-  border-radius:50%;
-  margin:3px;
-  position:relative;
-  animation:sway 2s ease-in-out infinite alternate;
-}
-.curl::before{
-  content:"";
-  position:absolute;
-  top:-20px;
-  left:0;
-  width:6px;
-  height:20px;
-  background:var(--accent-brown);
-  border-radius:50%;
-}
-
-/* Curl animations */
-.curl-2c{animation-duration:1.5s;}
-.curl-3a{animation-duration:1.2s;}
-.curl-3b{animation-duration:1s;}
-.curl-3c{animation-duration:0.9s;}
-.curl-4a{animation-duration:0.8s;}
-.curl-4b{animation-duration:0.7s;}
-.curl-4c{animation-duration:0.6s;}
-
-@keyframes sway{
-  0%{transform:rotate(-10deg);}
-  100%{transform:rotate(10deg);}
+.hair-type p{
+  font-size:0.95rem;
+  margin:0;
 }
 
 /* Login / Sign Up Cards */
@@ -168,52 +132,61 @@ footer{
 
 <header>
   <h1>Hey, Curlfriend!</h1>
-  <p>Your digital bestie for loving and caring for your curls 💖</p>
+  <p>Your digital bestie for loving, learning, and celebrating your curls 💖</p>
 </header>
 
 <section class="about">
-  <p>As a kid, I struggled managing my thick 4C hair. HeyCurlfriend helps Black women embrace, care for, and celebrate their natural curls, coils, and kinks.</p>
+  <h2>About Hey Curlfriend</h2>
+  <p>Hey Curlfriend is the first website created to help Black women embrace and care for their natural hair. It’s more than a guide — it’s a digital bestie that helps you keep your crown healthy and thriving!</p>
+  <p>On Hey Curlfriend, you can:</p>
+  <ul>
+    <li>Take a quiz to discover your unique hair type (2C → 4C)</li>
+    <li>Get personalized product recommendations for your hair</li>
+    <li>Follow daily haircare routines, including how to use bonnets effectively</li>
+    <li>Discover protective hairstyles that suit your curls</li>
+    <li>Learn tips and tricks to keep your crown healthy and radiant</li>
+  </ul>
+  <p>Whether you’re new to caring for your natural hair or already a curl enthusiast, Hey Curlfriend is here to make haircare simple, informative, and empowering!</p>
 </section>
 
 <section class="hair-types">
   <h2>Hair Types</h2>
-  <div class="hair-cards">
-    <div class="hair-card">
-      <div class="curl curl-2c"></div>
-      <div class="curl curl-2c"></div>
-      <div>2C</div>
-    </div>
-    <div class="hair-card">
-      <div class="curl curl-3a"></div>
-      <div class="curl curl-3a"></div>
-      <div>3A</div>
-    </div>
-    <div class="hair-card">
-      <div class="curl curl-3b"></div>
-      <div class="curl curl-3b"></div>
-      <div>3B</div>
-    </div>
-    <div class="hair-card">
-      <div class="curl curl-3c"></div>
-      <div class="curl curl-3c"></div>
-      <div>3C</div>
-    </div>
-    <div class="hair-card">
-      <div class="curl curl-4a"></div>
-      <div class="curl curl-4a"></div>
-      <div>4A</div>
-    </div>
-    <div class="hair-card">
-      <div class="curl curl-4b"></div>
-      <div class="curl curl-4b"></div>
-      <div>4B</div>
-    </div>
-    <div class="hair-card">
-      <div class="curl curl-4c"></div>
-      <div class="curl curl-4c"></div>
-      <div>4C</div>
-    </div>
+  
+  <div class="hair-type">
+    <h3>2C - Wavy Hair</h3>
+    <p>Loose S-shaped waves. Hair tends to frizz easily and may need lightweight styling products. <strong>Take our hair type quiz to see if you’re 2C!</strong></p>
   </div>
+  
+  <div class="hair-type">
+    <h3>3A - Loose Curls</h3>
+    <p>Defined, springy curls with a slight shine. Best cared for with hydrating products and curl-enhancing routines.</p>
+  </div>
+  
+  <div class="hair-type">
+    <h3>3B - Medium Curls</h3>
+    <p>Voluminous curls that may need extra moisture and curl creams to reduce frizz. Protective styles work well for length retention.</p>
+  </div>
+  
+  <div class="hair-type">
+    <h3>3C - Tight Curls</h3>
+    <p>Dense, springy curls that form corkscrews. Benefit from rich creams, leave-in conditioners, and careful detangling.</p>
+  </div>
+  
+  <div class="hair-type">
+    <h3>4A - Soft Coils</h3>
+    <p>Well-defined S-shaped coils. Retain moisture well with oils and butters, love protective styles like twists and braids.</p>
+  </div>
+  
+  <div class="hair-type">
+    <h3>4B - Z-shaped Coils</h3>
+    <p>Hair bends sharply in a zig-zag pattern. Needs gentle handling, moisture-rich products, and protective hairstyles to prevent breakage.</p>
+  </div>
+  
+  <div class="hair-type">
+    <h3>4C - Tightest Coils</h3>
+    <p>Very tight, dense coils. Highly fragile and shrinkage-prone. Protective styling, deep conditioning, and gentle care are essential. <strong>Hey Curlfriend helps you figure out routines perfect for 4C hair!</strong></p>
+  </div>
+  
 </section>
 
 <div class="cards-container">
