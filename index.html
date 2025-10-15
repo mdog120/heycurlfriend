@@ -18,21 +18,34 @@
   --button-hover:#F7A1C0;
 }
 
-/* Body and general layout */
+/* BODY & BACKGROUND */
 body{
   margin:0;
   font-family:'Nunito',sans-serif;
-  background:linear-gradient(120deg, #FFD1DC 0%, #FADADD 50%, #FFC0CB 100%);
-  background-size:400% 400%;
-  animation:gradientBG 15s ease infinite;
   color:var(--brown3);
   line-height:1.6;
   overflow-x:hidden;
+  position:relative;
+  background:var(--pink1);
 }
-@keyframes gradientBG{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
+
+/* Floating blob background */
+.blob{
+  position:fixed;
+  border-radius:50%;
+  opacity:0.2;
+  z-index:-1;
+  animation:floatBlob 30s linear infinite;
+}
+.blob1{width:400px;height:400px;background:var(--pink2);top:10%;left:-100px;animation-delay:0s;}
+.blob2{width:500px;height:500px;background:var(--pink3);top:50%;left:-150px;animation-delay:10s;}
+.blob3{width:350px;height:350px;background:var(--brown1);top:30%;left:-120px;animation-delay:5s;}
+.blob4{width:450px;height:450px;background:var(--brown2);top:70%;left:-180px;animation-delay:15s;}
+
+@keyframes floatBlob{
+  0%{transform:translateX(0) translateY(0) rotate(0deg);}
+  50%{transform:translateX(200vw) translateY(50px) rotate(20deg);}
+  100%{transform:translateX(0) translateY(0) rotate(0deg);}
 }
 
 /* Header */
@@ -57,10 +70,7 @@ header p{
   animation:fadeInScale 1s 0.5s forwards;
 }
 @keyframes fadeInScale{
-  to{
-    opacity:1;
-    transform:scale(1);
-  }
+  to{ opacity:1; transform:scale(1);}
 }
 
 /* Card sections */
@@ -76,12 +86,7 @@ section.card{
   transform:translateY(50px);
   transition:all 0.8s ease;
 }
-.card.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* Card titles */
+.card.visible{ opacity:1; transform:translateY(0); }
 .card h2{
   text-align:center;
   margin-bottom:1rem;
@@ -97,6 +102,7 @@ section.card{
   gap:1.5rem;
 }
 .hair-card{
+  position:relative;
   padding:1rem;
   border-radius:20px;
   background:linear-gradient(135deg, var(--pink3), var(--brown1));
@@ -106,21 +112,21 @@ section.card{
   opacity:0;
   transform:translateY(50px);
 }
-.hair-card.visible{
-  opacity:1;
-  transform:translateY(0);
-}
+.hair-card.visible{ opacity:1; transform:translateY(0);}
 .hair-card:hover{
-  transform:translateY(-5px);
+  transform:scale(1.05);
   box-shadow:0 12px 25px rgba(0,0,0,0.25);
 }
-.hair-card h3{
-  margin-top:0;
-  font-family:'Pacifico', cursive;
-  font-size:1.5rem;
-}
-.hair-card p{
-  font-size:0.95rem;
+
+/* Tiny CSS curl icon */
+.hair-card::before{
+  content:'';
+  position:absolute;
+  top:10px; right:10px;
+  width:15px; height:15px;
+  border-radius:50%;
+  border:3px solid var(--brown3);
+  transform:rotate(45deg);
 }
 
 /* Login / Signup */
@@ -142,10 +148,7 @@ section.card{
   transform:translateY(50px);
   transition:all 0.8s ease;
 }
-.form-card.visible{
-  opacity:1;
-  transform:translateY(0);
-}
+.form-card.visible{ opacity:1; transform:translateY(0);}
 .form-card h2{text-align:center;margin-bottom:1rem;}
 .form-card label{display:block;margin:0.3rem 0 0.1rem;}
 .form-card input{
@@ -169,6 +172,11 @@ section.card{
 .form-card button:hover{
   background:var(--button-hover);
   transform:scale(1.05);
+  animation: pulse 1s infinite alternate;
+}
+@keyframes pulse{
+  0%{transform:scale(1.05);}
+  100%{transform:scale(1.1);}
 }
 
 /* Footer */
@@ -182,25 +190,28 @@ footer{
 }
 
 /* Responsive */
-@media(max-width:768px){
-  .cards-container{flex-direction:column;align-items:center;}
-}
+@media(max-width:768px){ .cards-container{flex-direction:column;align-items:center;} }
+
 </style>
 </head>
 <body>
+
+<!-- Floating blobs -->
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+<div class="blob blob4"></div>
 
 <header>
   <h1>Hey, Curlfriend!</h1>
   <p>Your digital bestie for loving, learning, and celebrating your curls 💖</p>
 </header>
 
-<!-- Backstory -->
 <section class="card" id="backstory">
   <h2>My Hair Journey</h2>
   <p>Growing up with thick 4C hair was a challenge: tangles, shrinkage, and frizz made haircare overwhelming. I wanted a space to help Black women embrace their natural hair, learn what works, and feel empowered. That’s how <strong>Hey Curlfriend</strong> was born!</p>
 </section>
 
-<!-- About Curlfriend -->
 <section class="card" id="about-curlfriend">
   <h2>About Hey Curlfriend</h2>
   <ul>
@@ -213,7 +224,6 @@ footer{
   </ul>
 </section>
 
-<!-- Hair Types -->
 <section class="card">
   <h2>Hair Types</h2>
   <div class="hair-types">
@@ -227,7 +237,6 @@ footer{
   </div>
 </section>
 
-<!-- Login / Signup -->
 <div class="cards-container">
   <div class="form-card">
     <h2>Login</h2>
@@ -252,7 +261,7 @@ footer{
 <footer>est. 2025 Hey, Curlfriend.</footer>
 
 <script>
-// IntersectionObserver for fade-in scroll animations
+// Scroll fade-in animations
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){
@@ -260,7 +269,6 @@ const observer = new IntersectionObserver(entries=>{
     }
   });
 },{threshold:0.2});
-
 document.querySelectorAll('.card, .hair-card, .form-card').forEach(el=>{
   observer.observe(el);
 });
