@@ -4,238 +4,242 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hey, Curlfriend!</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --dark-brown:#3B2F2F;
-  --beige:#F4E9DC;
-  --gold:#C9A86A;
-  --hover-gold:#D6A77A;
-  --black:#000;
+  --primary-pink:#FADADD;
+  --accent-brown:#5C3A21;
+  --card-white:#FFF6F6;
+  --button-pink:#F9C0D3;
+  --button-hover:#F7A1C0;
 }
+
 body{
   margin:0;
   font-family:'Nunito',sans-serif;
-  background:linear-gradient(120deg,#F4E9DC,#C9A86A,#3B2F2F);
-  color:var(--dark-brown);
-  overflow-x:hidden;
+  background-color:var(--primary-pink);
+  color:var(--accent-brown);
 }
-/* header */
+
+/* Header */
 header{
   text-align:center;
   padding:3rem 1rem;
-  color:var(--beige);
-  animation: fadeIn 2s ease forwards;
 }
 header h1{
-  font-family:'Pacifico',cursive;
   font-size:3rem;
-  margin-bottom:1rem;
-  background:linear-gradient(90deg,#F4E9DC,#C9A86A,#3B2F2F);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:textGlow 3s infinite alternate;
+  margin-bottom:0.5rem;
 }
-header p{font-size:1.2rem;}
+header p{
+  font-size:1.2rem;
+  margin-top:0;
+}
 
 /* About */
 section.about{
-  padding:3rem 1rem;
   max-width:800px;
-  margin:0 auto;
-  text-align:center;
-  background:rgba(255,255,255,0.3);
+  margin:2rem auto;
+  padding:2rem;
+  background:var(--card-white);
   border-radius:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.2);
-  animation:fadeIn 2s ease forwards;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  text-align:center;
 }
-section.about p{margin-bottom:1rem;}
 
 /* Hair Types */
 section.hair-types{
-  padding:3rem 1rem;
   text-align:center;
+  margin:3rem 1rem;
 }
 .hair-types h2{
-  font-family:'Pacifico',cursive;
   font-size:2rem;
   margin-bottom:2rem;
 }
 .hair-cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
   gap:2rem;
   justify-items:center;
 }
 .hair-card{
-  width:100px;height:150px;
+  width:100px;
+  height:140px;
+  background:var(--card-white);
+  border-radius:20px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:flex-end;
+  padding-bottom:10px;
+  transition:transform 0.3s;
+}
+.hair-card:hover{transform:translateY(-5px);}
+.curl{
+  width:6px;
+  height:60px;
+  background:var(--accent-brown);
+  border-radius:50%;
+  margin:3px;
   position:relative;
+  animation:sway 2s ease-in-out infinite alternate;
 }
-.hair-card span{
-  display:block;
-  width:4px;
-  height:100px;
-  background:var(--dark-brown);
-  border-radius:2px;
-  animation:wave 2s ease-in-out infinite alternate;
-  margin-bottom:10px;
-}
-
-/* Testimonials */
-section.testimonials{
-  padding:3rem 1rem;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  max-width:600px;
-  margin:0 auto;
-}
-.testimonial{
+.curl::before{
+  content:"";
   position:absolute;
-  width:100%;
-  opacity:0;
-  transform:translateX(100%);
-  transition:0.5s ease;
+  top:-20px;
+  left:0;
+  width:6px;
+  height:20px;
+  background:var(--accent-brown);
+  border-radius:50%;
 }
-.testimonial.active{
-  opacity:1;
-  transform:translateX(0);
-}
-.testimonial p{font-style:italic;margin-bottom:0.5rem;}
-.testimonial h3{font-weight:700;}
 
-/* Cards Container */
-.cards-container{display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; padding:2rem;}
+/* Curl animations */
+.curl-2c{animation-duration:1.5s;}
+.curl-3a{animation-duration:1.2s;}
+.curl-3b{animation-duration:1s;}
+.curl-3c{animation-duration:0.9s;}
+.curl-4a{animation-duration:0.8s;}
+.curl-4b{animation-duration:0.7s;}
+.curl-4c{animation-duration:0.6s;}
+
+@keyframes sway{
+  0%{transform:rotate(-10deg);}
+  100%{transform:rotate(10deg);}
+}
+
+/* Login / Sign Up Cards */
+.cards-container{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:2rem;
+  margin:3rem 1rem;
+}
 .form-card{
-  background:var(--beige); padding:1.5rem; border-radius:20px; box-shadow:0 8px 20px rgba(0,0,0,0.2); width:300px; transition:0.3s; animation:fadeIn 2s ease forwards;
+  background:var(--card-white);
+  border-radius:20px;
+  padding:2rem;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  width:300px;
 }
-.form-card h2{font-family:'Pacifico',cursive;text-align:center;margin-bottom:1rem;}
-.form-card label{display:block;margin:0.3rem 0 0.1rem;}
-.form-card input{width:100%;padding:0.5rem;border-radius:10px;border:1px solid var(--dark-brown);margin-bottom:0.5rem;}
-.form-card button{width:100%;padding:0.6rem;background:var(--gold);border-radius:20px;font-weight:700;transition:0.3s;}
-.form-card button:hover{background:var(--hover-gold); transform:scale(1.03);}
-
-/* Loading Screen */
-#loading{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(255,255,255,0.9);
-  display:flex;align-items:center;justify-content:center;flex-direction:column;
-  font-size:1.5rem;font-weight:700;color:var(--dark-brown);display:none;z-index:1000;
+.form-card h2{
+  text-align:center;
+  margin-bottom:1rem;
 }
-.spinner{
-  width:50px;height:50px;border:5px solid var(--gold);border-top:5px solid var(--dark-brown);
-  border-radius:50%;animation:spin 1s linear infinite;margin-bottom:1rem;
+.form-card label{
+  display:block;
+  margin:0.3rem 0 0.1rem;
+}
+.form-card input{
+  width:100%;
+  padding:0.5rem;
+  border-radius:10px;
+  border:1px solid var(--accent-brown);
+  margin-bottom:0.5rem;
+}
+.form-card button{
+  width:100%;
+  padding:0.6rem;
+  border:none;
+  border-radius:20px;
+  background:var(--button-pink);
+  color:var(--accent-brown);
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+}
+.form-card button:hover{
+  background:var(--button-hover);
 }
 
 /* Footer */
-footer{background:var(--dark-brown); color:var(--beige); text-align:center; padding:1.5rem; margin-top:2rem;}
-footer a{margin:0 0.5rem;color:var(--beige);font-weight:600;}
-
-/* Animations */
-@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-@keyframes wave{0%{transform:rotate(-10deg);}100%{transform:rotate(10deg);}}
-@keyframes textGlow{0%{filter:drop-shadow(0 0 0px #fff);}100%{filter:drop-shadow(0 0 8px #fff);}}
+footer{
+  text-align:center;
+  padding:1.5rem;
+  background:var(--accent-brown);
+  color:var(--primary-pink);
+  margin-top:2rem;
+}
 </style>
 </head>
 <body>
 
 <header>
   <h1>Hey, Curlfriend!</h1>
-  <p>Your digital bestie for loving, learning, and caring for your crown 💕</p>
+  <p>Your digital bestie for loving and caring for your curls 💖</p>
 </header>
 
 <section class="about">
-  <h2>About</h2>
-  <p>As a kid, I struggled so much managing my thick 4C hair. HeyCurlfriend is my digital bestie to help Black women embrace, care for, and celebrate their natural curls, coils, and kinks.</p>
+  <p>As a kid, I struggled managing my thick 4C hair. HeyCurlfriend helps Black women embrace, care for, and celebrate their natural curls, coils, and kinks.</p>
 </section>
 
 <section class="hair-types">
   <h2>Hair Types</h2>
   <div class="hair-cards">
-    <div class="hair-card"><span></span>2C</div>
-    <div class="hair-card"><span></span>3A</div>
-    <div class="hair-card"><span></span>3B</div>
-    <div class="hair-card"><span></span>3C</div>
-    <div class="hair-card"><span></span>4A</div>
-    <div class="hair-card"><span></span>4B</div>
-    <div class="hair-card"><span></span>4C</div>
-  </div>
-</section>
-
-<section class="testimonials">
-  <div class="testimonial active">
-    <p>"HeyCurlfriend makes wash day fun again!"</p>
-    <h3>- Lewa</h3>
-  </div>
-  <div class="testimonial">
-    <p>"I finally feel my coils are loved 💖"</p>
-    <h3>- Bukky</h3>
-  </div>
-  <div class="testimonial">
-    <p>"The hair tips are amazing and easy to follow!"</p>
-    <h3>- Lala</h3>
+    <div class="hair-card">
+      <div class="curl curl-2c"></div>
+      <div class="curl curl-2c"></div>
+      <div>2C</div>
+    </div>
+    <div class="hair-card">
+      <div class="curl curl-3a"></div>
+      <div class="curl curl-3a"></div>
+      <div>3A</div>
+    </div>
+    <div class="hair-card">
+      <div class="curl curl-3b"></div>
+      <div class="curl curl-3b"></div>
+      <div>3B</div>
+    </div>
+    <div class="hair-card">
+      <div class="curl curl-3c"></div>
+      <div class="curl curl-3c"></div>
+      <div>3C</div>
+    </div>
+    <div class="hair-card">
+      <div class="curl curl-4a"></div>
+      <div class="curl curl-4a"></div>
+      <div>4A</div>
+    </div>
+    <div class="hair-card">
+      <div class="curl curl-4b"></div>
+      <div class="curl curl-4b"></div>
+      <div>4B</div>
+    </div>
+    <div class="hair-card">
+      <div class="curl curl-4c"></div>
+      <div class="curl curl-4c"></div>
+      <div>4C</div>
+    </div>
   </div>
 </section>
 
 <div class="cards-container">
-  <!-- Login -->
   <div class="form-card">
     <h2>Login</h2>
     <label>Username</label>
-    <input type="text" id="login-username">
+    <input type="text">
     <label>Password</label>
-    <input type="password" id="login-password">
-    <button onclick="showLoading()">Login</button>
+    <input type="password">
+    <button onclick="location.href='loading.html'">Login</button>
   </div>
-
-  <!-- Sign Up -->
   <div class="form-card">
     <h2>Sign Up</h2>
-    <label>First Name</label><input type="text" id="first-name">
-    <label>Last Name</label><input type="text" id="last-name">
-    <label>DOB</label><input type="date" id="dob">
-    <label>Email</label><input type="email" id="email">
-    <label>Phone</label><input type="tel" id="phone">
-    <label>Username</label><input type="text" id="signup-username">
-    <label>Password</label><input type="password" id="signup-password">
-    <label>Verify Password</label><input type="password" id="verify-password">
-    <button onclick="showLoading()">Sign Up</button>
+    <label>First Name</label><input type="text">
+    <label>Last Name</label><input type="text">
+    <label>DOB</label><input type="date">
+    <label>Email</label><input type="email">
+    <label>Phone</label><input type="tel">
+    <label>Username</label><input type="text">
+    <label>Password</label><input type="password">
+    <label>Verify Password</label><input type="password">
+    <button onclick="location.href='loading.html'">Sign Up</button>
   </div>
-</div>
-
-<div id="loading">
-  <div class="spinner"></div>
-  <div>Curlfriend is getting your crown ready 💖</div>
 </div>
 
 <footer>est. 2025 Hey, Curlfriend.</footer>
-
-<script>
-// Testimonials Slider
-let index = 0;
-const slides = document.querySelectorAll('.testimonial');
-setInterval(()=>{
-  slides[index].classList.remove('active');
-  index = (index+1)%slides.length;
-  slides[index].classList.add('active');
-},3000);
-
-// Loading Simulation
-function showLoading(){
-  document.querySelectorAll('.form-card').forEach(c=>c.style.display='none');
-  document.getElementById('loading').style.display='flex';
-  setTimeout(()=>{
-    document.getElementById('loading').style.display='none';
-    window.scrollTo({top:0,behavior:'smooth'});
-    // could reveal Home section if needed
-  },2000);
-}
-</script>
 
 </body>
 </html>
