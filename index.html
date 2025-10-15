@@ -4,12 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hey, Curlfriend!</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&family=Roboto+Slab&display=swap" rel="stylesheet">
 <style>
 :root{
-  --primary-pink:#FADADD;
-  --accent-brown:#5C3A21;
-  --card-white:#FFF6F6;
+  --pink1:#FADADD;
+  --pink2:#FFD1DC;
+  --pink3:#FFC0CB;
+  --brown1:#D4A373;
+  --brown2:#A0522D;
+  --brown3:#5C3A21;
+  --card:white;
   --button-pink:#F9C0D3;
   --button-hover:#F7A1C0;
 }
@@ -17,9 +21,10 @@
 body{
   margin:0;
   font-family:'Nunito',sans-serif;
-  background-color:var(--primary-pink);
-  color:var(--accent-brown);
+  background-color:var(--pink1);
+  color:var(--brown3);
   line-height:1.6;
+  overflow-x:hidden;
 }
 
 /* Header */
@@ -29,51 +34,85 @@ header{
 }
 header h1{
   font-size:3rem;
-  margin-bottom:0.5rem;
+  font-family:'Pacifico', cursive;
+  background: linear-gradient(90deg, var(--pink2), var(--brown2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity:0;
+  transform:scale(0.8);
+  animation:fadeInScale 1s forwards;
 }
 header p{
   font-size:1.2rem;
-  margin-top:0;
+  margin-top:0.5rem;
+  opacity:0;
+  animation:fadeInScale 1s 0.5s forwards;
+}
+@keyframes fadeInScale{
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
 }
 
-/* Sections */
-section{
+/* Cards */
+section.card{
   max-width:900px;
   margin:2rem auto;
   padding:2rem;
-  background:var(--card-white);
+  background:var(--card);
   border-radius:20px;
   box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  opacity:0;
+  transform:translateY(50px);
+  transition:all 0.8s ease;
+}
+.card.visible{
+  opacity:1;
+  transform:translateY(0);
 }
 
-/* About */
-.about h2{
-  font-size:2rem;
-  margin-bottom:1rem;
+/* Card titles */
+.card h2{
   text-align:center;
-}
-.about p{
   margin-bottom:1rem;
+  font-family:'Roboto Slab', serif;
+  font-size:2rem;
 }
 
 /* Hair Types */
-.hair-types h2{
-  font-size:2rem;
-  margin-bottom:1rem;
-  text-align:center;
+.hair-types{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.5rem;
 }
-.hair-type{
-  margin-bottom:1.5rem;
+.hair-card{
+  padding:1rem;
+  border-radius:20px;
+  background:linear-gradient(135deg, var(--pink3), var(--brown1));
+  color:var(--brown3);
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  transition:transform 0.3s, box-shadow 0.3s;
+  opacity:0;
+  transform:translateY(50px);
 }
-.hair-type h3{
-  margin-bottom:0.3rem;
+.hair-card.visible{
+  opacity:1;
+  transform:translateY(0);
 }
-.hair-type p{
+.hair-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+.hair-card h3{
+  margin-top:0;
+  font-family:'Pacifico', cursive;
+}
+.hair-card p{
   font-size:0.95rem;
-  margin:0;
 }
 
-/* Login / Sign Up Cards */
+/* Login/Signup */
 .cards-container{
   display:flex;
   justify-content:center;
@@ -82,25 +121,26 @@ section{
   margin:3rem 1rem;
 }
 .form-card{
-  background:var(--card-white);
+  background:var(--card);
   border-radius:20px;
   padding:2rem;
   box-shadow:0 6px 20px rgba(0,0,0,0.1);
   width:300px;
+  opacity:0;
+  transform:translateY(50px);
+  transition:all 0.8s ease;
 }
-.form-card h2{
-  text-align:center;
-  margin-bottom:1rem;
+.form-card.visible{
+  opacity:1;
+  transform:translateY(0);
 }
-.form-card label{
-  display:block;
-  margin:0.3rem 0 0.1rem;
-}
+.form-card h2{text-align:center;margin-bottom:1rem;}
+.form-card label{display:block;margin:0.3rem 0 0.1rem;}
 .form-card input{
   width:100%;
   padding:0.5rem;
   border-radius:10px;
-  border:1px solid var(--accent-brown);
+  border:1px solid var(--brown3);
   margin-bottom:0.5rem;
 }
 .form-card button{
@@ -109,23 +149,28 @@ section{
   border:none;
   border-radius:20px;
   background:var(--button-pink);
-  color:var(--accent-brown);
+  color:var(--brown3);
   font-weight:700;
   cursor:pointer;
   transition:0.3s;
 }
-.form-card button:hover{
-  background:var(--button-hover);
-}
+.form-card button:hover{background:var(--button-hover);}
 
 /* Footer */
 footer{
   text-align:center;
   padding:1.5rem;
-  background:var(--accent-brown);
-  color:var(--primary-pink);
+  background:var(--brown3);
+  color:var(--pink1);
   margin-top:2rem;
 }
+
+/* Responsive */
+@media(max-width:768px){
+  .cards-container{flex-direction:column;align-items:center;}
+}
+
+/* IntersectionObserver fade-in animation */
 </style>
 </head>
 <body>
@@ -135,60 +180,63 @@ footer{
   <p>Your digital bestie for loving, learning, and celebrating your curls 💖</p>
 </header>
 
-<section class="about">
+<!-- Backstory -->
+<section class="card" id="backstory">
+  <h2>My Hair Journey</h2>
+  <p>As a kid, managing my thick 4C hair felt impossible. Tangled knots, shrinkage, and frizz made haircare intimidating. I dreamed of a space that could help Black women understand, love, and maintain their natural hair — and that’s how Hey Curlfriend was born.</p>
+</section>
+
+<!-- About Curlfriend -->
+<section class="card" id="about-curlfriend">
   <h2>About Hey Curlfriend</h2>
-  <p>Hey Curlfriend is the first website created to help Black women embrace and care for their natural hair. It’s more than a guide — it’s a digital bestie that helps you keep your crown healthy and thriving!</p>
-  <p>On Hey Curlfriend, you can:</p>
+  <p>Hey Curlfriend helps you:</p>
   <ul>
-    <li>Take a quiz to discover your unique hair type (2C → 4C)</li>
-    <li>Get personalized product recommendations for your hair</li>
-    <li>Follow daily haircare routines, including how to use bonnets effectively</li>
-    <li>Discover protective hairstyles that suit your curls</li>
-    <li>Learn tips and tricks to keep your crown healthy and radiant</li>
+    <li>Take a quiz to discover your hair type (2C → 4C)</li>
+    <li>Get personalized product recommendations</li>
+    <li>Follow daily haircare routines, including bonnets</li>
+    <li>Learn protective hairstyles</li>
+    <li>Find hairdressers near you</li>
+    <li>Keep your crown healthy, moisturized, and thriving</li>
   </ul>
-  <p>Whether you’re new to caring for your natural hair or already a curl enthusiast, Hey Curlfriend is here to make haircare simple, informative, and empowering!</p>
+  <p>It’s your digital bestie for everything curls!</p>
 </section>
 
-<section class="hair-types">
+<!-- Hair Types -->
+<section class="card">
   <h2>Hair Types</h2>
-  
-  <div class="hair-type">
-    <h3>2C - Wavy Hair</h3>
-    <p>Loose S-shaped waves. Hair tends to frizz easily and may need lightweight styling products. <strong>Take our hair type quiz to see if you’re 2C!</strong></p>
+  <div class="hair-types">
+    <div class="hair-card">
+      <h3>2C</h3>
+      <p>Loose S-shaped waves. Frizz easily. Lightweight products work best. <strong>Take the hair type quiz to see if you’re 2C!</strong></p>
+    </div>
+    <div class="hair-card">
+      <h3>3A</h3>
+      <p>Defined, springy curls. Hydrating products enhance shine and curl shape.</p>
+    </div>
+    <div class="hair-card">
+      <h3>3B</h3>
+      <p>Medium curls with volume. Extra moisture reduces frizz. Protective styles help length retention.</p>
+    </div>
+    <div class="hair-card">
+      <h3>3C</h3>
+      <p>Dense, corkscrew curls. Rich creams, leave-in conditioners, and gentle detangling are key.</p>
+    </div>
+    <div class="hair-card">
+      <h3>4A</h3>
+      <p>Soft S-shaped coils. Retain moisture well. Love twists and braids.</p>
+    </div>
+    <div class="hair-card">
+      <h3>4B</h3>
+      <p>Z-shaped coils. Needs moisture and gentle handling. Protective hairstyles prevent breakage.</p>
+    </div>
+    <div class="hair-card">
+      <h3>4C</h3>
+      <p>Tightest coils. Highly fragile. Protective styling, deep conditioning, and gentle care are essential.</p>
+    </div>
   </div>
-  
-  <div class="hair-type">
-    <h3>3A - Loose Curls</h3>
-    <p>Defined, springy curls with a slight shine. Best cared for with hydrating products and curl-enhancing routines.</p>
-  </div>
-  
-  <div class="hair-type">
-    <h3>3B - Medium Curls</h3>
-    <p>Voluminous curls that may need extra moisture and curl creams to reduce frizz. Protective styles work well for length retention.</p>
-  </div>
-  
-  <div class="hair-type">
-    <h3>3C - Tight Curls</h3>
-    <p>Dense, springy curls that form corkscrews. Benefit from rich creams, leave-in conditioners, and careful detangling.</p>
-  </div>
-  
-  <div class="hair-type">
-    <h3>4A - Soft Coils</h3>
-    <p>Well-defined S-shaped coils. Retain moisture well with oils and butters, love protective styles like twists and braids.</p>
-  </div>
-  
-  <div class="hair-type">
-    <h3>4B - Z-shaped Coils</h3>
-    <p>Hair bends sharply in a zig-zag pattern. Needs gentle handling, moisture-rich products, and protective hairstyles to prevent breakage.</p>
-  </div>
-  
-  <div class="hair-type">
-    <h3>4C - Tightest Coils</h3>
-    <p>Very tight, dense coils. Highly fragile and shrinkage-prone. Protective styling, deep conditioning, and gentle care are essential. <strong>Hey Curlfriend helps you figure out routines perfect for 4C hair!</strong></p>
-  </div>
-  
 </section>
 
+<!-- Login / Signup -->
 <div class="cards-container">
   <div class="form-card">
     <h2>Login</h2>
@@ -213,6 +261,21 @@ footer{
 </div>
 
 <footer>est. 2025 Hey, Curlfriend.</footer>
+
+<script>
+// IntersectionObserver for fade-in on scroll
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+},{threshold:0.2});
+
+document.querySelectorAll('.card, .hair-card, .form-card').forEach(el=>{
+  observer.observe(el);
+});
+</script>
 
 </body>
 </html>
