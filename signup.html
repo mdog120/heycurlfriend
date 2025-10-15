@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up - Hey Curlfriend</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  font-family:'Nunito',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:#FADADD;
+}
+.form-card{
+  background:white;
+  border-radius:25px;
+  border:2px solid #FFD1DC;
+  padding:2rem;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  width:350px;
+}
+.form-card h2{text-align:center;margin-bottom:1rem;}
+label{display:block;margin:0.3rem 0 0.1rem;}
+input{width:100%; padding:0.6rem; border-radius:12px; border:1px solid #5C3A21; margin-bottom:0.6rem;}
+button{
+  width:100%; padding:0.7rem; border:none; border-radius:25px; background:#F9C0D3; color:#5C3A21; font-weight:700; cursor:pointer; transition:0.3s;
+}
+button:hover{ background:#F7A1C0; transform:scale(1.05);}
+a{display:block; text-align:center; margin-top:0.5rem; text-decoration:none; color:#5C3A21;}
+a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<div class="form-card">
+  <h2>Sign Up</h2>
+  <label>First Name</label><input type="text">
+  <label>Last Name</label><input type="text">
+  <label>DOB</label><input type="date">
+  <label>Email</label><input type="email">
+  <label>Phone</label><input type="tel">
+  <label>Username</label><input type="text">
+  <label>Password</label><input type="password">
+  <label>Verify Password</label><input type="password">
+  <button onclick="location.href='loading.html'">Sign Up</button>
+  <a href="index.html">Already a Curlfriend? Login!</a>
+</div>
+
+</body>
+</html>
