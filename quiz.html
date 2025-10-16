@@ -31,30 +31,33 @@ nav ul li a:hover{color:var(--brown2);}
 
 /* Container & Cards */
 .container{max-width:900px; margin:2rem auto; padding:1rem;}
-#progressContainer{background:var(--pink2); border-radius:25px; height:15px; margin-bottom:1.5rem; overflow:hidden;}
-#progressBar{background:var(--brown2); width:0%; height:100%; transition:width 0.4s ease;}
-.quiz-card, #resultSection{background:var(--card); border-radius:25px; border:2px solid var(--pink2); padding:2rem; margin-bottom:2rem; box-shadow:0 10px 25px rgba(0,0,0,0.1); transition:opacity 0.3s ease;}
-.quiz-card h3{margin-bottom:2rem; text-align:center;}
-.options{display:flex; justify-content:space-between;}
-.options button{
-  flex:1;
-  margin:0 0.3rem;
-  padding:0.8rem 0;
-  border:none;
-  border-radius:25px;
-  background:var(--button-pink);
-  font-weight:700;
-  cursor:pointer;
-  transition:0.3s;
+#progressContainer{
+  background:var(--pink2); border-radius:25px; height:15px; margin-bottom:1rem; overflow:hidden; position:relative;
 }
-.options button:hover{background:var(--button-hover); transform:scale(1.05);}
-.options button.selected{background:var(--brown2); color:white;}
-#nextBtn, #restartBtn{background:var(--brown2); color:white; padding:0.8rem 1.5rem; border:none; border-radius:25px; font-weight:700; cursor:pointer; margin-top:2rem; transition:0.3s; display:block; width:100%;}
-#nextBtn:hover,#restartBtn:hover{background:var(--brown3); transform:scale(1.05);}
+#progressBar{background:var(--brown2); width:0%; height:100%; transition:width 0.4s ease;}
+#progressPercent{position:absolute; top:-25px; right:0; font-weight:700; font-size:0.9rem;}
+
+.quiz-card, #resultSection{
+  background:var(--card); border-radius:25px; border:2px solid var(--pink2);
+  padding:2rem; margin-bottom:2rem; box-shadow:0 10px 25px rgba(0,0,0,0.1); transition:opacity 0.3s ease;
+}
+.quiz-card h3{margin-bottom:1rem;}
+.options{display:flex; flex-direction:column; gap:0.8rem;}
+.options button{
+  background:var(--button-pink); border:none; border-radius:25px;
+  padding:0.7rem; cursor:pointer; font-weight:700; transition:0.3s;
+}
+.options button:hover{background:var(--button-hover);}
+.options button.selected{outline:3px solid var(--brown2); background:var(--pink3);}
+
 #resultSection{display:none; text-align:center; animation:fadeUp 1s ease forwards; opacity:0;}
 #resultSection h2{font-family:'Pacifico',cursive; font-size:2rem; margin-bottom:1rem;}
 #resultSection p{margin-bottom:1rem;}
+.result-btn{background:var(--brown2); color:white; padding:0.8rem 1.5rem; border:none; border-radius:25px; font-weight:700; cursor:pointer; margin:0.5rem; transition:0.3s;}
+.result-btn:hover{background:var(--brown3); transform:scale(1.05);}
+
 #confettiCanvas{position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:20;}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
@@ -72,12 +75,14 @@ nav ul li a:hover{color:var(--brown2);}
 </nav>
 
 <div class="container">
-  <div id="progressContainer"><div id="progressBar"></div></div>
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+    <span id="progressPercent">0%</span>
+  </div>
 
   <div id="quizContainer" class="quiz-card">
     <h3 id="questionText"></h3>
     <div class="options" id="optionsContainer"></div>
-    <button id="nextBtn" style="display:none;">Next</button>
   </div>
 
   <div id="resultSection" class="quiz-card">
@@ -85,9 +90,9 @@ nav ul li a:hover{color:var(--brown2);}
     <p id="resultDescription"></p>
     <p id="proneTo"></p>
     <p id="celebs"></p>
-    <button id="restartBtn">Retake Quiz</button>
-    <button onclick="window.location.href='products.html'">Find Products</button>
-    <button onclick="window.location.href='routines.html'">Find Routines</button>
+    <button class="result-btn" onclick="window.location.href='products.html'">Find Products</button>
+    <button class="result-btn" onclick="window.location.href='routines.html'">Find Routines</button>
+    <button class="result-btn" id="restartBtn">Retake Quiz</button>
   </div>
 </div>
 
@@ -109,10 +114,10 @@ const quizData = [
   {question:"Hair density:", options:["Very dense","Dense","Medium-high","Medium","Medium-low","Low"], values:["4C","4B","4A","3C","3B","3A"]},
   {question:"Shrinkage wet vs dry:", options:["Extremely high","High","Moderate-high","Medium","Medium-low","Low"], values:["4C","4B","4A","3C","3B","3A"]},
   {question:"Hair prone to:", options:["Breakage & dryness","Dry ends","Split ends","Split ends occasionally","Frizz","Resilient"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Curl definition without products:", options:["Minimal","Moderate","Moderate","Good","Good","Very good"], values:["4C","4B","4A","3C","3B","3A"]},
+  {question:"Curl definition without products:", options:["Minimal","Moderate","Good","Good","Very good","Excellent"], values:["4C","4B","4A","3C","3B","3A"]},
   {question:"Elasticity:", options:["Low","Low-medium","Medium","Medium-high","High","Very high"], values:["4C","4B","4A","3C","3B","3A"]},
   {question:"Porous ends?", options:["Very porous","Porous","Slightly porous","Medium","Low","Very low"], values:["4C","4B","4A","3C","3B","3A"]},
-  {question:"Curl spring back:", options:["Little","Moderate","Good","Good","Very good","Excellent"], values:["4C","4B","4A","3C","3B","3A"]},
+  {question:"Curl spring back:", options:["Little","Moderate","Good","Very good","Excellent","Excellent+ tips"], values:["4C","4B","4A","3C","3B","3A"]},
   {question:"Frizz management:", options:["Difficult","Medium","Medium","Easy","Easy","Very easy"], values:["4C","4B","4A","3C","3B","3A"]},
   {question:"Celebrity inspiration:", options:["Beyoncé, Viola Davis","Tracee Ellis Ross, Yara Shahidi","Solange, Janelle Monae","Kerry Washington, Lupita Nyong'o","Zendaya, Kelly Rowland","Sarah Hyland, Naomi Osaka"], values:["4C","4B","4A","3C","3B","3A"]},
   {question:"Overall curl type:", options:["Coily tight","Coily springy","Coily soft","Curly tight","Curly loose","Wavy"], values:["4C","4B","4A","3C","3B","3A"]}
@@ -123,48 +128,61 @@ let hairScore={"2C":0,"3A":0,"3B":0,"3C":0,"4A":0,"4B":0,"4C":0};
 const questionText=document.getElementById('questionText');
 const optionsContainer=document.getElementById('optionsContainer');
 const progressBar=document.getElementById('progressBar');
-const nextBtn=document.getElementById('nextBtn');
+const progressPercent=document.getElementById('progressPercent');
 
 function showQuestion(){
   const q=quizData[currentQ];
   questionText.textContent=q.question;
   optionsContainer.innerHTML='';
-  progressBar.style.width=`${(currentQ/quizData.length)*100}%`;
-  nextBtn.style.display='none';
+  progressBar.style.width=`${((currentQ)/quizData.length)*100}%`;
+  progressPercent.textContent=`${Math.floor((currentQ/quizData.length)*100)}%`;
 
   q.options.forEach((opt,i)=>{
     const btn=document.createElement('button');
     btn.textContent=opt;
     btn.onclick=()=>{
-      document.querySelectorAll('.options button').forEach(b=>b.classList.remove('selected'));
-      btn.classList.add('selected');
       hairScore[q.values[i]]++;
-      nextBtn.style.display='block';
+      btn.classList.add("selected");
+      setTimeout(()=>{
+        if(currentQ<quizData.length-1){
+          currentQ++;
+          showQuestion();
+        } else {
+          showResults();
+        }
+      },300);
     };
     optionsContainer.appendChild(btn);
   });
 }
 
-nextBtn.onclick=()=>{
-  if(currentQ<quizData.length-1){
-    currentQ++;
-    showQuestion();
-  } else {
-    showResults();
-  }
-};
-
 function showResults(){
   const maxType=Object.keys(hairScore).reduce((a,b)=>hairScore[a]>hairScore[b]?a:b);
   document.getElementById('finalHairType').textContent=maxType;
-  document.getElementById('resultDescription').textContent="Your curls are beautiful and unique! Here's a little info:";
-  document.getElementById('proneTo').textContent="Prone to dryness, shrinkage, and requires consistent moisture.";
-  document.getElementById('celebs').textContent="Celebrities with this hair type: "+quizData.find(q=>q.values.includes(maxType)).options[quizData.find(q=>q.values.includes(maxType)).values.indexOf(maxType)];
+
+  // Hair type descriptions (example)
+  const descriptions = {
+    "4C":"Tightly coiled hair with high shrinkage. Prone to dryness and breakage. Requires consistent moisture. Celebrities: Beyoncé, Viola Davis.",
+    "4B":"Z-shaped coils, springy. Moderate shrinkage. Moisture and protective styles recommended. Celebrities: Tracee Ellis Ross, Yara Shahidi.",
+    "4A":"Soft coils, defined. Moderate shrinkage. Easy to style with moisture. Celebrities: Solange, Janelle Monae.",
+    "3C":"Curly tight, springy. Retains definition with proper routine. Celebrities: Kerry Washington, Lupita Nyong'o.",
+    "3B":"Curly loose, bouncy. Hydrate and define curls. Celebrities: Zendaya, Kelly Rowland.",
+    "3A":"Loose wavy hair. Easy to manage. Celebrities: Sarah Hyland, Naomi Osaka.",
+    "2C":"Wavy thick hair. Defined S-shape. Celebrities: Some wavy celebs."
+  };
+
+  document.getElementById('resultDescription').textContent=descriptions[maxType].split(".")[0]+".";
+  document.getElementById('proneTo').textContent="Hair traits: "+descriptions[maxType].split(".")[1]+".";
+  document.getElementById('celebs').textContent="Celebrity inspiration: "+descriptions[maxType].split(".")[2];
+
   document.getElementById('quizContainer').style.display='none';
   document.getElementById('resultSection').style.display='block';
+  progressBar.style.width="100%";
+  progressPercent.textContent="100%";
   launchConfetti();
 }
 
+// Restart quiz
 document.getElementById('restartBtn').onclick=()=>{
   hairScore={"2C":0,"3A":0,"3B":0,"3C":0,"4A":0,"4B":0,"4C":0};
   currentQ=0;
@@ -184,24 +202,25 @@ function launchConfetti() {
   for(let i=0;i<150;i++){
     confettis.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-100,r:Math.random()*6+4,d:Math.random()*40,color:colors[Math.floor(Math.random()*colors.length)],tilt:Math.random()*10-10,tiltAngle:0,tiltAngleIncrement:Math.random()*0.07+0.05});
   }
-  let frames=0;
   function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
+    let alive=false;
     confettis.forEach(c=>{
-      ctx.beginPath();
-      ctx.lineWidth=c.r/2;
-      ctx.strokeStyle=c.color;
-      ctx.moveTo(c.x+c.tilt+c.r/4,c.y);
-      ctx.lineTo(c.x+c.tilt,c.y+c.tilt+c.r/4);
-      ctx.stroke();
-      c.tiltAngle+=c.tiltAngleIncrement;
-      c.y+=(Math.cos(c.d)+3+c.r/2)/2;
-      c.x+=Math.sin(c.d);
-      c.tilt=Math.sin(c.tiltAngle)*15;
-      if(c.y>canvas.height){c.y=-10;c.x=Math.random()*canvas.width;}
+      if(c.y<canvas.height){
+        alive=true;
+        ctx.beginPath();
+        ctx.lineWidth=c.r/2;
+        ctx.strokeStyle=c.color;
+        ctx.moveTo(c.x+c.tilt+c.r/4,c.y);
+        ctx.lineTo(c.x+c.tilt,c.y+c.tilt+c.r/4);
+        ctx.stroke();
+        c.tiltAngle+=c.tiltAngleIncrement;
+        c.y+=(Math.cos(c.d)+3+c.r/2)/2;
+        c.x+=Math.sin(c.d);
+        c.tilt=Math.sin(c.tiltAngle)*15;
+      }
     });
-    frames++;
-    if(frames<300) requestAnimationFrame(draw); // stop after ~5s
+    if(alive) requestAnimationFrame(draw);
   }
   draw();
 }
