@@ -265,6 +265,7 @@ footer {
 </div>
 
 <script>
+// ---------- User Info ----------
 const user = JSON.parse(localStorage.getItem('user')) || {};
 const hairType = localStorage.getItem('hairType');
 document.getElementById('username').textContent = user.username || 'Curlfriend';
@@ -290,15 +291,15 @@ function getTip(type){
   return tips[type]||"Take the quiz to discover your unique curl pattern!";
 }
 
-// Edit Modal
+// ---------- Edit Modal ----------
 const modal=document.getElementById('modal');
-document.getElementById('edit-profile').onclick=()=>{
+document.getElementById('edit-profile').onclick=()=> {
   modal.style.display='flex';
   document.getElementById('edit-name').value=user.username||'';
   document.getElementById('edit-email').value=user.email||'';
   document.getElementById('edit-dob').value=user.dob||'';
 };
-document.getElementById('save-profile').onclick=()=>{
+document.getElementById('save-profile').onclick=()=> {
   user.username=document.getElementById('edit-name').value;
   user.email=document.getElementById('edit-email').value;
   user.dob=document.getElementById('edit-dob').value;
@@ -308,9 +309,9 @@ document.getElementById('save-profile').onclick=()=>{
 };
 window.onclick=(e)=>{if(e.target===modal) modal.style.display='none';};
 
-// Buttons
+// ---------- Buttons ----------
 document.getElementById('retake-quiz').onclick=()=>{window.location.href='quiz.html';};
-document.getElementById('delete-account').onclick=()=>{
+document.getElementById('delete-account').onclick=()=> {
   if(confirm("Are you sure you want to delete your account?")){
     localStorage.clear();
     window.location.href='index.html';
@@ -318,7 +319,7 @@ document.getElementById('delete-account').onclick=()=>{
 };
 document.getElementById('logout').onclick=()=>{window.location.href='index.html';};
 
-// Dynamic recommendations
+// ---------- Recommendations ----------
 const recs=document.getElementById('recs-grid');
 if(hairType){
   recs.innerHTML=`
@@ -360,6 +361,46 @@ function getCelebs(type){
     "4C":"Michaela Coel, Erykah Badu"
   };return celebs[type]||"Find your curl twin after your quiz!";
 }
+
+// ---------- Wishlist ----------
+const wishlistGrid = document.getElementById('wishlist-grid');
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+function renderWishlist() {
+  wishlistGrid.innerHTML = '';
+  if (wishlist.length === 0) {
+    wishlistGrid.innerHTML = '<p>You haven’t saved anything yet — start exploring! ✨</p>';
+  } else {
+    wishlist.forEach(item => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+        <div class="hair-type" style="font-weight:700; margin-bottom:5px;">${item.hair}</div>
+        <h3>${item.name}</h3>
+        <p>${item.desc}</p>
+        <button class="remove-btn">Remove</button>
+      `;
+      wishlistGrid.appendChild(card);
+
+      card.querySelector('.remove-btn').onclick = () => {
+        wishlist = wishlist.filter(p => !(p.name === item.name && p.hair === item.hair));
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        renderWishlist();
+      };
+    });
+  }
+}
+
+// Listen for wishlist changes from other pages
+window.addEventListener('storage', (e) => {
+  if (e.key === 'wishlist') {
+    wishlist = JSON.parse(e.newValue) || [];
+    renderWishlist();
+  }
+});
+
+// Initial render
+renderWishlist();
 </script>
 
 </body>
