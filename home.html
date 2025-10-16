@@ -13,7 +13,7 @@
   --brown1: #d4a373;
   --brown2: #a0522d;
   --brown3: #5c3a21;
-  --card: white;
+  --card: #fffafc;
   --button-pink: #f9c0d3;
   --button-hover: #f7a1c0;
 }
@@ -28,13 +28,22 @@ body {
   position: relative;
 }
 
+/* Moving Circles */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 /* Navbar */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: var(--pink3);
+  background: rgba(255, 192, 203, 0.85);
+  backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -65,16 +74,54 @@ nav ul li a:hover {
 /* Welcome Section */
 #welcome {
   text-align: center;
-  padding: 4rem 2rem 2rem;
+  padding: 5rem 2rem 3rem;
+  position: relative;
+  z-index: 1;
 }
 #welcome h1 {
   font-family: "Pacifico", cursive;
-  font-size: 2.8rem;
+  font-size: 3rem;
   margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+}
+#welcome .sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  top: -10px;
+  left: -10px;
+  animation: sparkle 1.2s infinite alternate;
+}
+@keyframes sparkle {
+  0% { transform: scale(0.5); opacity: 0.3; }
+  50% { transform: scale(1.5); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.3; }
 }
 #welcome p {
   font-size: 1.2rem;
   margin-top: 0.5rem;
+}
+#welcome .highlights {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+}
+.highlight {
+  background: var(--pink3);
+  color: var(--brown3);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.highlight:hover {
+  transform: scale(1.05);
 }
 
 /* Cards */
@@ -84,6 +131,8 @@ nav ul li a:hover {
   flex-wrap: wrap;
   gap: 2rem;
   margin: 3rem 1rem 5rem;
+  position: relative;
+  z-index: 1;
 }
 .card {
   background: var(--card);
@@ -104,6 +153,10 @@ nav ul li a:hover {
 .card:hover {
   transform: scale(1.05);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+.card img {
+  width: 50px;
+  margin-bottom: 0.8rem;
 }
 .card button {
   margin-top: 1rem;
@@ -135,10 +188,15 @@ footer {
     flex-direction: column;
     align-items: center;
   }
+  #welcome .highlights {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
 }
 </style>
 </head>
 <body>
+
 <nav>
   <div class="logo">Hey Curlfriend</div>
   <ul>
@@ -151,32 +209,45 @@ footer {
 </nav>
 
 <section id="welcome">
-  <h1 id="greeting">Hey, Curlfriend!</h1>
+  <h1 id="greeting">Hey, Curlfriend!
+    <span class="sparkle"></span>
+  </h1>
   <p>Keep your crown healthy 💕. Explore your hair type, routines, products, and local hairdressers all in one place.</p>
+  <div class="highlights">
+    <div class="highlight">Take the Hair Quiz</div>
+    <div class="highlight">Find Routines for Your Curls</div>
+    <div class="highlight">Browse Recommended Products</div>
+    <div class="highlight">Locate Trusted Hairdressers</div>
+  </div>
 </section>
 
-<section class="cards" id="account">
+<section class="cards" id="features">
   <div class="card">
+    <img src="icons/user.svg" alt="Profile Icon">
     <h3>Profile</h3>
     <p>View or update your personal info and hair type.</p>
     <button><a href="account.html">Go to Account</a></button>
   </div>
   <div class="card">
+    <img src="icons/quiz.svg" alt="Quiz Icon">
     <h3>Hair Quiz</h3>
     <p>Take the quiz to determine your hair type and get tailored advice.</p>
     <button><a href="quiz.html">Take Quiz</a></button>
   </div>
   <div class="card">
+    <img src="icons/routine.svg" alt="Routines Icon">
     <h3>Recommended Routines</h3>
     <p>Discover haircare routines personalized for your curls.</p>
-    <button><a href= "routines.html">View Routines</a></button>
+    <button><a href="routines.html">View Routines</a></button>
   </div>
   <div class="card">
+    <img src="icons/products.svg" alt="Products Icon">
     <h3>Find Products</h3>
     <p>Get product recommendations for your specific hair type.</p>
     <button><a href="products.html">Browse Products</a></button>
   </div>
   <div class="card">
+    <img src="icons/salon.svg" alt="Hairdresser Icon">
     <h3>Hairdressers Near You</h3>
     <p>Locate trusted hairdressers nearby who specialize in Black hair.</p>
     <button>Find Hairdresser</button>
@@ -206,6 +277,33 @@ const observer = new IntersectionObserver(
 );
 
 document.querySelectorAll(".card").forEach((el) => observer.observe(el));
+
+// Moving circles background
+const circleCount = 20;
+for (let i = 0; i < circleCount; i++) {
+  const circle = document.createElement('div');
+  circle.classList.add('circle');
+  const size = Math.random() * 80 + 20;
+  circle.style.width = `${size}px`;
+  circle.style.height = `${size}px`;
+  circle.style.background = `rgba(255, 192, 203, ${Math.random() * 0.5 + 0.2})`;
+  circle.style.top = `${Math.random() * window.innerHeight}px`;
+  circle.style.left = `${Math.random() * window.innerWidth}px`;
+  circle.dataset.speed = (Math.random() * 0.5 + 0.2);
+  document.body.appendChild(circle);
+}
+
+function animateCircles() {
+  document.querySelectorAll('.circle').forEach(circle => {
+    const currentTop = parseFloat(circle.style.top);
+    let newTop = currentTop - circle.dataset.speed;
+    if (newTop < -100) newTop = window.innerHeight + 50;
+    circle.style.top = newTop + 'px';
+  });
+  requestAnimationFrame(animateCircles);
+}
+animateCircles();
 </script>
+
 </body>
 </html>
