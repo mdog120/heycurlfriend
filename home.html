@@ -28,12 +28,14 @@ body {
   position: relative;
 }
 
-/* Moving Circles */
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.3;
-  pointer-events: none;
+/* Canvas Background for circles */
+#circleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 /* Navbar */
@@ -42,8 +44,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: rgba(255, 192, 203, 0.85);
-  backdrop-filter: blur(6px);
+  background: var(--pink3);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -75,53 +76,16 @@ nav ul li a:hover {
 #welcome {
   text-align: center;
   padding: 5rem 2rem 3rem;
-  position: relative;
-  z-index: 1;
+  animation: fadeUp 1s ease forwards;
 }
 #welcome h1 {
   font-family: "Pacifico", cursive;
   font-size: 3rem;
   margin-bottom: 0.5rem;
-  position: relative;
-  display: inline-block;
-}
-#welcome .sparkle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #fff;
-  border-radius: 50%;
-  top: -10px;
-  left: -10px;
-  animation: sparkle 1.2s infinite alternate;
-}
-@keyframes sparkle {
-  0% { transform: scale(0.5); opacity: 0.3; }
-  50% { transform: scale(1.5); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.3; }
 }
 #welcome p {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-top: 0.5rem;
-}
-#welcome .highlights {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.2rem;
-}
-.highlight {
-  background: var(--pink3);
-  color: var(--brown3);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-}
-.highlight:hover {
-  transform: scale(1.05);
 }
 
 /* Cards */
@@ -131,8 +95,6 @@ nav ul li a:hover {
   flex-wrap: wrap;
   gap: 2rem;
   margin: 3rem 1rem 5rem;
-  position: relative;
-  z-index: 1;
 }
 .card {
   background: var(--card);
@@ -149,28 +111,26 @@ nav ul li a:hover {
 .card.visible {
   opacity: 1;
   transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .card:hover {
   transform: scale(1.05);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
-}
-.card img {
-  width: 50px;
-  margin-bottom: 0.8rem;
 }
 .card button {
   margin-top: 1rem;
   padding: 0.7rem 1rem;
   border: none;
   border-radius: 25px;
-  background: var(--button-pink);
-  color: var(--brown3);
+  background: var(--brown3);
+  color: var(--pink1);
   font-weight: 700;
   cursor: pointer;
   transition: 0.3s;
+  text-decoration: none;
 }
 .card button:hover {
-  background: var(--button-hover);
+  background: var(--brown2);
   transform: scale(1.05);
 }
 
@@ -183,19 +143,22 @@ footer {
   border-top: 3px solid var(--pink2);
 }
 
+/* Animations */
+@keyframes fadeUp {
+  from {opacity: 0; transform: translateY(50px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
 @media (max-width: 768px) {
   .cards {
     flex-direction: column;
     align-items: center;
   }
-  #welcome .highlights {
-    flex-direction: column;
-    gap: 0.7rem;
-  }
 }
 </style>
 </head>
 <body>
+<canvas id="circleCanvas"></canvas>
 
 <nav>
   <div class="logo">Hey Curlfriend</div>
@@ -209,101 +172,93 @@ footer {
 </nav>
 
 <section id="welcome">
-  <h1 id="greeting">Hey, Curlfriend!
-    <span class="sparkle"></span>
-  </h1>
-  <p>Keep your crown healthy 💕. Explore your hair type, routines, products, and local hairdressers all in one place.</p>
-  <div class="highlights">
-    <div class="highlight">Take the Hair Quiz</div>
-    <div class="highlight">Find Routines for Your Curls</div>
-    <div class="highlight">Browse Recommended Products</div>
-    <div class="highlight">Locate Trusted Hairdressers</div>
-  </div>
+  <h1 id="greeting">Hey, Curlfriend!</h1>
+  <p>Keep your crown healthy 💕 Explore hair types, routines, products, and local hairdressers all in one place.</p>
 </section>
 
-<section class="cards" id="features">
+<section class="cards" id="account">
   <div class="card">
-    <img src="icons/user.svg" alt="Profile Icon">
     <h3>Profile</h3>
     <p>View or update your personal info and hair type.</p>
-    <button><a href="account.html">Go to Account</a></button>
+    <button onclick="location.href='account.html'">Go to Account</button>
   </div>
   <div class="card">
-    <img src="icons/quiz.svg" alt="Quiz Icon">
     <h3>Hair Quiz</h3>
     <p>Take the quiz to determine your hair type and get tailored advice.</p>
-    <button><a href="quiz.html">Take Quiz</a></button>
+    <button onclick="location.href='quiz.html'">Take Quiz</button>
   </div>
   <div class="card">
-    <img src="icons/routine.svg" alt="Routines Icon">
     <h3>Recommended Routines</h3>
     <p>Discover haircare routines personalized for your curls.</p>
-    <button><a href="routines.html">View Routines</a></button>
+    <button onclick="location.href='routines.html'">View Routines</button>
   </div>
   <div class="card">
-    <img src="icons/products.svg" alt="Products Icon">
     <h3>Find Products</h3>
     <p>Get product recommendations for your specific hair type.</p>
-    <button><a href="products.html">Browse Products</a></button>
+    <button onclick="location.href='products.html'">Browse Products</button>
   </div>
   <div class="card">
-    <img src="icons/salon.svg" alt="Hairdresser Icon">
     <h3>Hairdressers Near You</h3>
     <p>Locate trusted hairdressers nearby who specialize in Black hair.</p>
-    <button>Find Hairdresser</button>
+    <button onclick="alert('Coming soon!')">Find Hairdresser</button>
   </div>
 </section>
 
 <footer>est. 2025 Hey Curlfriend</footer>
 
 <script>
-// Greeting based on username from login
-const username = localStorage.getItem("username");
-const greeting = document.getElementById("greeting");
-if (username) {
-  greeting.textContent = `Hey, ${username}!`;
+// Floating circles background
+const canvas = document.getElementById('circleCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const colors = ["#fadadd","#ffd1dc","#ffc0cb","#d4a373","#a0522d","#5c3a21"];
+const circles = [];
+for(let i=0;i<60;i++){
+  circles.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*20+10,
+    dx: (Math.random()-0.5)*0.5,
+    dy: (Math.random()-0.5)*0.5,
+    color: colors[Math.floor(Math.random()*colors.length)],
+    alpha: Math.random()*0.5+0.3
+  });
 }
 
-// Fade-in cards on scroll
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  },
-  { threshold: 0.2 }
-);
-
-document.querySelectorAll(".card").forEach((el) => observer.observe(el));
-
-// Moving circles background
-const circleCount = 20;
-for (let i = 0; i < circleCount; i++) {
-  const circle = document.createElement('div');
-  circle.classList.add('circle');
-  const size = Math.random() * 80 + 20;
-  circle.style.width = `${size}px`;
-  circle.style.height = `${size}px`;
-  circle.style.background = `rgba(255, 192, 203, ${Math.random() * 0.5 + 0.2})`;
-  circle.style.top = `${Math.random() * window.innerHeight}px`;
-  circle.style.left = `${Math.random() * window.innerWidth}px`;
-  circle.dataset.speed = (Math.random() * 0.5 + 0.2);
-  document.body.appendChild(circle);
-}
-
-function animateCircles() {
-  document.querySelectorAll('.circle').forEach(circle => {
-    const currentTop = parseFloat(circle.style.top);
-    let newTop = currentTop - circle.dataset.speed;
-    if (newTop < -100) newTop = window.innerHeight + 50;
-    circle.style.top = newTop + 'px';
+function animateCircles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  circles.forEach(c=>{
+    ctx.beginPath();
+    ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(${parseInt(c.color.slice(1,3),16)},${parseInt(c.color.slice(3,5),16)},${parseInt(c.color.slice(5,7),16)},${c.alpha})`;
+    ctx.fill();
+    c.x += c.dx;
+    c.y += c.dy;
+    if(c.x-c.r>canvas.width)c.x=-c.r;
+    if(c.x+c.r<0)c.x=canvas.width+c.r;
+    if(c.y-c.r>canvas.height)c.y=-c.r;
+    if(c.y+c.r<0)c.y=canvas.height+c.r;
   });
   requestAnimationFrame(animateCircles);
 }
 animateCircles();
-</script>
 
+// Greeting from localStorage
+const username = localStorage.getItem("username");
+const greeting = document.getElementById("greeting");
+if (username) greeting.textContent = `Hey, ${username}!`;
+
+// Fade-in cards
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+  });
+},{threshold:0.2});
+document.querySelectorAll(".card").forEach(el=>observer.observe(el));
+</script>
 </body>
 </html>
