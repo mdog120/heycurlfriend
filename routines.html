@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hey Curlfriend - Hair Routines</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink1:#FADADD; --pink2:#FFD1DC; --pink3:#FFC0CB;
+  --brown1:#D4A373; --brown2:#A0522D; --brown3:#5C3A21;
+  --card:#fffafc; --button-pink:#F9C0D3; --button-hover:#F7A1C0;
+}
+
+/* Body & Background */
+body{
+  margin:0; font-family:'Nunito',sans-serif; color:var(--brown3); background:var(--pink1); overflow-x:hidden; position:relative;
+}
+#backgroundCanvas{position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;}
+
+/* Navbar */
+nav{
+  display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem;
+  background:var(--pink3); box-shadow:0 4px 10px rgba(0,0,0,0.1); position:sticky; top:0; z-index:10;
+}
+nav .logo{font-family:'Pacifico',cursive; font-size:1.8rem; color:var(--brown3);}
+nav ul{display:flex; list-style:none; gap:1.5rem; margin:0; padding:0;}
+nav ul li a{text-decoration:none; color:var(--brown3); font-weight:700; transition:0.3s;}
+nav ul li a:hover{color:var(--brown2);}
+
+/* Hair Type Selector */
+#hairTypes{display:flex; justify-content:center; gap:1rem; margin:2rem 0;}
+.hairTypeBtn{
+  padding:0.5rem 1rem; border-radius:25px; border:none; cursor:pointer; font-weight:700;
+  background:var(--button-pink); transition:0.3s;
+}
+.hairTypeBtn.active, .hairTypeBtn:hover{background:var(--button-hover); transform:scale(1.05);}
+
+/* Progress Bar */
+#progressContainer{width:90%; max-width:700px; margin:1rem auto; background:var(--pink2); border-radius:25px; height:20px; overflow:hidden;}
+#progressBar{background:var(--brown2); width:0%; height:100%; transition:width 0.4s ease;}
+#progressPercent{text-align:center; margin-top:0.5rem; font-weight:700;}
+
+/* Calendar */
+#calendar{display:grid; grid-template-columns:repeat(7,1fr); gap:5px; max-width:900px; margin:2rem auto;}
+.dayHeader{text-align:center; font-weight:700; padding:0.5rem 0;}
+.dayCell{
+  background:var(--card); border:2px solid var(--pink2); border-radius:15px;
+  min-height:100px; display:flex; flex-direction:column; align-items:center; padding:0.3rem;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1); transition:transform 0.3s;
+}
+.dayCell:hover{transform:scale(1.03);}
+.taskCircle{
+  width:20px; height:20px; border-radius:50%; border:2px solid var(--brown2);
+  margin:2px; cursor:pointer; transition:0.3s; position:relative;
+}
+.taskCircle.completed{background:var(--brown2);}
+.taskCircle:hover::after{
+  content:attr(data-task); position:absolute; top:-25px; left:50%; transform:translateX(-50%);
+  background:var(--pink3); padding:2px 5px; border-radius:5px; font-size:0.7rem; white-space:nowrap;
+}
+
+/* Footer */
+footer{text-align:center; padding:2rem; background:var(--brown3); color:var(--pink1); border-top:3px solid var(--pink2);}
+
+/* Responsive */
+@media(max-width:768px){#calendar{grid-template-columns:repeat(7,1fr);}}
+</style>
+</head>
+<body>
+
+<canvas id="backgroundCanvas"></canvas>
+
+<nav>
+  <div class="logo">Hey Curlfriend</div>
+  <ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="account.html">Account</a></li>
+    <li><a href="quiz.html">Hair Types Quiz</a></li>
+    <li><a href="routines.html">Hair Routines</a></li>
+    <li><a href="products.html">Hair Products</a></li>
+  </ul>
+</nav>
+
+<section id="hairTypes">
+  <button class="hairTypeBtn active" data-type="2C">2C</button>
+  <button class="hairTypeBtn" data-type="3A">3A</button>
+  <button class="hairTypeBtn" data-type="3B">3B</button>
+  <button class="hairTypeBtn" data-type="3C">3C</button>
+  <button class="hairTypeBtn" data-type="4A">4A</button>
+  <button class="hairTypeBtn" data-type="4B">4B</button>
+  <button class="hairTypeBtn" data-type="4C">4C</button>
+</section>
+
+<div id="progressContainer"><div id="progressBar"></div></div>
+<div id="progressPercent">0% completed</div>
+
+<div id="calendar">
+  <!-- Day headers -->
+  <div class="dayHeader">Sun</div>
+  <div class="dayHeader">Mon</div>
+  <div class="dayHeader">Tue</div>
+  <div class="dayHeader">Wed</div>
+  <div class="dayHeader">Thu</div>
+  <div class="dayHeader">Fri</div>
+  <div class="dayHeader">Sat</div>
+</div>
+
+<footer>est. 2025 Hey Curlfriend</footer>
+
+<script>
+// ---------- Floating Background Circles ----------
+const canvas=document.getElementById('backgroundCanvas');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+const circles=[];
+for(let i=0;i<50;i++){
+  circles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*30+10,dx:(Math.random()-0.5)/2,dy:(Math.random()-0.5)/2,color:`rgba(255,192,203,${Math.random()*0.3+0.2})`});
+}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  circles.forEach(c=>{
+    c.x+=c.dx; c.y+=c.dy;
+    if(c.x-c.r<0||c.x+c.r>canvas.width) c.dx*=-1;
+    if(c.y-c.r<0||c.y+c.r>canvas.height) c.dy*=-1;
+    ctx.beginPath(); ctx.arc(c.x,c.y,c.r,0,Math.PI*2); ctx.fillStyle=c.color; ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
+
+// ---------- Hair Routine Tasks ----------
+const hairRoutines={
+  "2C":[{task:"Detangle & Moisturize",days:[1,3,5]},{task:"Shampoo & Condition",days:[7,14]},{task:"Protective Style",days:[10,20,30]}],
+  "3A":[{task:"Detangle & Moisturize",days:[1,4,7]},{task:"Shampoo & Condition",days:[10,20]},{task:"Protective Style",days:[15,25]}],
+  "3B":[{task:"Detangle & Moisturize",days:[1,3,6]},{task:"Shampoo & Condition",days:[10,18]},{task:"Protective Style",days:[12,24]}],
+  "3C":[{task:"Detangle & Moisturize",days:[1,4,8]},{task:"Shampoo & Condition",days:[12,20]},{task:"Protective Style",days:[15,28]}],
+  "4A":[{task:"Detangle & Moisturize",days:[1,3,7]},{task:"Shampoo & Condition",days:[10,18]},{task:"Protective Style",days:[12,24]}],
+  "4B":[{task:"Detangle & Moisturize",days:[1,3,8]},{task:"Shampoo & Condition",days:[10,20]},{task:"Protective Style",days:[15,28]}],
+  "4C":[{task:"Detangle & Moisturize",days:[1,5,10]},{task:"Shampoo & Condition",days:[15,30]},{task:"Protective Style",days:[8,16,24]}]
+};
+
+let currentType="2C";
+const calendar=document.getElementById('calendar');
+function renderCalendar(){
+  // Clear previous day cells except headers
+  document.querySelectorAll('.dayCell').forEach(e=>e.remove());
+  const daysInMonth=30;
+  for(let d=1;d<=daysInMonth;d++){
+    const day=document.createElement('div'); day.classList.add('dayCell'); day.dataset.day=d;
+    const tasks=hairRoutines[currentType].filter(t=>t.days.includes(d));
+    tasks.forEach(t=>{
+      const circle=document.createElement('div'); circle.classList.add('taskCircle');
+      circle.dataset.task=t.task; circle.dataset.day=d;
+      const storedKey=`${currentType}-${d}-${t.task}`;
+      if(localStorage.getItem(storedKey)) circle.classList.add('completed');
+      circle.addEventListener('click',()=>{
+        circle.classList.toggle('completed');
+        if(circle.classList.contains('completed')){
+          localStorage.setItem(storedKey,'done');
+        } else {
+          localStorage.removeItem(storedKey);
+        }
+        updateProgress();
+      });
+      day.appendChild(circle);
+    });
+    calendar.appendChild(day);
+  }
+  updateProgress();
+}
+function updateProgress(){
+  const total=document.querySelectorAll('.taskCircle').length;
+  const completed=document.querySelectorAll('.taskCircle.completed').length;
+  const percent=total?Math.round((completed/total)*100):0;
+  document.getElementById('progressBar').style.width=`${percent}%`;
+  document.getElementById('progressPercent').textContent=`${percent}% completed`;
+}
+
+// Hair type buttons
+document.querySelectorAll('.hairTypeBtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.hairTypeBtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentType=btn.dataset.type;
+    renderCalendar();
+  });
+});
+
+// Initialize calendar
+renderCalendar();
+</script>
+
+</body>
+</html>
