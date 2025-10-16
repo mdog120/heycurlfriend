@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hey Curlfriend - Products</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink1:#FADADD; --pink2:#FFD1DC; --pink3:#FFC0CB;
+  --brown1:#D4A373; --brown2:#A0522D; --brown3:#5C3A21;
+  --card:#fffafc; --button-pink:#F9C0D3; --button-hover:#F7A1C0;
+}
+body{
+  margin:0; font-family:'Nunito',sans-serif; background:var(--pink1); color:var(--brown3);
+}
+nav{
+  display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:var(--pink3); position:sticky; top:0; z-index:10; box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+nav .logo{font-family:'Pacifico',cursive; font-size:1.8rem; color:var(--brown3);}
+nav ul{display:flex; list-style:none; gap:1.5rem; margin:0; padding:0;}
+nav ul li a{text-decoration:none; color:var(--brown3); font-weight:700; transition:0.3s;}
+nav ul li a:hover{color:var(--brown2);}
+.container{max-width:1200px; margin:2rem auto; padding:0 1rem;}
+h1{text-align:center; font-family:'Pacifico',cursive; margin-bottom:2rem;}
+.filter-buttons{text-align:center; margin-bottom:2rem;}
+.filter-buttons button{margin:0 0.5rem 0.5rem 0.5rem; padding:0.5rem 1rem; border:none; border-radius:25px; background:var(--button-pink); cursor:pointer; font-weight:700; transition:0.3s;}
+.filter-buttons button:hover{background:var(--button-hover);}
+.products-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;}
+.product-card{background:var(--card); border-radius:25px; border:2px solid var(--pink2); padding:1rem; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.1); display:flex; flex-direction:column; justify-content:space-between;}
+.product-card .hair-type{position:absolute; top:10px; left:10px; background:var(--pink2); padding:0.3rem 0.6rem; border-radius:15px; font-weight:700;}
+.product-card .wishlist{position:absolute; top:10px; right:10px; font-size:1.2rem; cursor:pointer;}
+.product-card h3{text-align:center; margin-top:2rem;}
+.product-card p{text-align:center; margin:0.5rem 0;}
+.product-card a{display:block; text-align:center; margin-top:auto; padding:0.5rem; background:var(--brown2); color:white; border-radius:20px; text-decoration:none; font-weight:700; transition:0.3s;}
+.product-card a:hover{background:var(--brown3);}
+footer{text-align:center; padding:2rem; background:var(--brown3); color:var(--pink1); border-top:3px solid var(--pink2); margin-top:2rem;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Hey Curlfriend</div>
+  <ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="account.html">Account</a></li>
+    <li><a href="quiz.html">Hair Types Quiz</a></li>
+    <li><a href="routines.html">Hair Routines</a></li>
+    <li><a href="products.html">Hair Products</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <h1>Hair Products</h1>
+  <div class="filter-buttons">
+    <button data-filter="all">All</button>
+    <button data-filter="2C">2C</button>
+    <button data-filter="3A">3A</button>
+    <button data-filter="3B">3B</button>
+    <button data-filter="3C">3C</button>
+    <button data-filter="4A">4A</button>
+    <button data-filter="4B">4B</button>
+    <button data-filter="4C">4C</button>
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+    <!-- Product cards will be injected here -->
+  </div>
+</div>
+
+<footer>est. 2025 Hey Curlfriend</footer>
+
+<script>
+// Products Data
+const products=[
+  {type:"2C", name:"Maui Moisture Lightweight Curls Shampoo", desc:"Enhances curl definition without weighing hair down.", link:"https://www.amazon.com/dp/B01N6Y5H9S"},
+  {type:"2C", name:"SheaMoisture Coconut & Hibiscus Shampoo", desc:"Defines curls and reduces frizz.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"2C", name:"OGX Coconut Curls Shampoo", desc:"Moisturizes and defines curls.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"2C", name:"DevaCurl No-Poo", desc:"Non-lathering cleanser for natural moisture.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"2C", name:"Living Proof Curl Shampoo", desc:"Frizz control and curl definition.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"2C", name:"Maui Moisture Conditioner", desc:"Moisturizes without heaviness.", link:"https://www.amazon.com/dp/B01N6Y5H9S"},
+  {type:"2C", name:"SheaMoisture Coconut & Hibiscus Conditioner", desc:"Detangles and adds shine.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"2C", name:"OGX Coconut Curls Conditioner", desc:"Deeply hydrates curls.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"2C", name:"DevaCurl One Condition", desc:"Rich in moisture.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"2C", name:"Living Proof Curl Conditioner", desc:"Enhances natural curl shape.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  // Add more for 3A,3B,3C,4A,4B,4C...
+  {type:"4C", name:"Cantu Shea Butter Curl Activator Cream", desc:"Defines and moisturizes tight coils.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"4C", name:"SheaMoisture Curl Enhancing Smoothie", desc:"Provides curl definition and frizz control.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"4C", name:"DevaCurl Styling Cream", desc:"Curl definition without crunch.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"4C", name:"Ouidad Advanced Climate Control Gel", desc:"Protects curls from humidity and heat.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+  {type:"4C", name:"Living Proof Curl Defining Cream", desc:"Enhances curl definition and frizz control.", link:"https://www.amazon.com/dp/B00FZ7X2W2"},
+];
+
+// Render Products
+const grid=document.getElementById('productsGrid');
+function renderProducts(filter){
+  grid.innerHTML='';
+  const filtered=filter==='all'?products:products.filter(p=>p.type===filter);
+  filtered.forEach(p=>{
+    const card=document.createElement('div');
+    card.className='product-card';
+    card.innerHTML=`
+      <div class="hair-type">${p.type}</div>
+      <div class="wishlist">♡</div>
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <a href="${p.link}" target="_blank">Buy Now</a>
+    `;
+    const heart=card.querySelector('.wishlist');
+    heart.addEventListener('click',()=>{
+      const wishlist=JSON.parse(localStorage.getItem('wishlist')||'[]');
+      if(!wishlist.includes(p.name)){wishlist.push(p.name); localStorage.setItem('wishlist',JSON.stringify(wishlist)); heart.textContent='♥'; alert('Saved to wishlist!');}
+    });
+    grid.appendChild(card);
+  });
+}
+renderProducts('all');
+
+// Filter Buttons
+document.querySelectorAll('.filter-buttons button').forEach(btn=>{
+  btn.addEventListener('click',()=>renderProducts(btn.dataset.filter));
+});
+</script>
+
+</body>
+</html>
