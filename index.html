@@ -255,9 +255,9 @@ footer{
 <div class="cards-container">
   <div class="form-card" id="login-card">
     <h2>Login</h2>
-    <label>Username</label><input type="text">
-    <label>Password</label><input type="password">
-    <button onclick="location.href='loading.html'">Login</button>
+    <label id ="username">Username</label><input type="text">
+    <label id = "password">Password</label><input type="password">
+    <button onclick="loginHandler()">Login</button>
     <a href="signup.html">Not a Curlfriend? Sign up!</a>
   </div>
 </div>
@@ -265,6 +265,12 @@ footer{
 <footer>est. 2025 Hey, Curlfriend.</footer>
 
 <script>
+  function loginHandler(){
+    const u = document.getElementById("username").value.trim();
+    if(!u){ alert('Please enter your username!'); return; }
+    const p = document.getElementById("password").value.trim();
+    if (!p){ alert('Please enter your password!'); return; }
+    window.location.href = 'loading.html'; }
 // Scroll fade-in animations
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
