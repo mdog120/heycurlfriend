@@ -266,9 +266,9 @@ footer{
 
 <script>
   function loginHandler(){
-    const u = document.getElementById("username").value.trim();
+    const u = document.getElementById("username").value;
     if(!u){ alert('Please enter your username!'); return; }
-    const p = document.getElementById("password").value.trim();
+    const p = document.getElementById("password").value;
     if (!p){ alert('Please enter your password!'); return; }
     window.location.href = 'loading.html'; }
 // Scroll fade-in animations
